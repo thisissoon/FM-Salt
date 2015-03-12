@@ -5,4 +5,6 @@
 #
 
 include:
-  - ..libspotify
+  - libasound2
+  - libspotify
+  - libevent
