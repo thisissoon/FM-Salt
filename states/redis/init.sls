@@ -13,3 +13,10 @@
     - reload: True
     - watch:
       - pkg: .redis
+
+.redis-py:
+  pip.installed:
+    name: redis
+    require:
+      - stateconf: python.install::goal
+      - pkg: .redis

@@ -15,6 +15,7 @@ base:
 
   'roles:salt-master':
     - match: grain
+    - python
     - redis
 
   # FM Player
