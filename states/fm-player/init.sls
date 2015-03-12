@@ -5,6 +5,7 @@
 #
 
 include:
+  - python
   - libffi
   - libasound2
   - libspotify
