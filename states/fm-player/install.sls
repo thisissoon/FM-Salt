@@ -11,6 +11,6 @@
       - stateconf: python::goal
 
 .spotify-key:
-  file.managed:
+  file.copy:
     - name: /spotify.key
     - source: s3://thisissoon-fm/soon_spotify.key
