@@ -12,3 +12,8 @@ base:
   # API Servers
   '*':
     - core
+
+  # FM Player
+  'roles:fm-player':
+    - match: grain
+    - fm-player
