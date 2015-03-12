@@ -13,6 +13,10 @@ base:
   '*':
     - core
 
+  'roles:salt-master':
+    - match: grain
+    - redis
+
   # FM Player
   'roles:fm-player':
     - match: grain
