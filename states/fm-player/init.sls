@@ -5,8 +5,12 @@
 #
 
 include:
+  # Dependencies
   - python
   - libffi
   - libasound2
   - libspotify
   - libevent
+
+  # Install
+  - ..install
