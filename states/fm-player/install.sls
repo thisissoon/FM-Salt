@@ -13,4 +13,4 @@
 .spotify-key:
   file.managed:
     - name: /spotify.key
-    - source: s3://thisissoon.fm/soon_spotify.key
+    - source: s3://thisissoon-fm/soon_spotify.key
