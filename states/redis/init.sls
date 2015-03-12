@@ -6,9 +6,9 @@
 
 .redis:
   pkg.installed:
-    - name: redis
+    - name: redis-server
   service.running:
-    - name: redis
+    - name: redis-server
     - enable: True
     - reload: True
     - watch:
