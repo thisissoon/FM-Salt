@@ -13,3 +13,11 @@
     - name: python-dev
     - require:
       - pkg: .python
+
+.pip:
+  cmd.run:
+    - name: curl -L https://bootstrap.pypa.io/get-pip.py | python
+    - unless: test -f /usr/local/bin/pip
+    - reload_modules: True
+    - require:
+      - pkg: .python-dev
