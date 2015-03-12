@@ -21,3 +21,9 @@
     - reload_modules: True
     - require:
       - pkg: .python-dev
+
+.ipython:
+  pip.installed:
+    - name: ipython
+    - require:
+      - cmd: .pip
