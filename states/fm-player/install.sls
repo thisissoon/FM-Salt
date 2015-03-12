@@ -6,6 +6,6 @@
 
 .fm-player:
   pip.installed:
-    - name: git+https://github.com/thisissoon/FM-Player.git
+    - name: git+https://github.com/thisissoon/FM-Player.git@master
     - require:
       - stateconf: python::goal
