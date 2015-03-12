@@ -16,7 +16,7 @@
 
 .redis-py:
   pip.installed:
-    name: redis
-    require:
+    - name: redis
+    - require:
       - stateconf: python.install::goal
       - pkg: .redis
