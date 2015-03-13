@@ -8,3 +8,5 @@
 include:
   - docker
   - redis
+
+  - .container
