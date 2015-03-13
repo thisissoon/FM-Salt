@@ -45,8 +45,8 @@
 .running:
   docker.running:
     - name: fm-api
-    - ports:
-      - "5000/tcp":
+    - port_bindings:
+        "5000/tcp":
             HostIp: ""
             HostPort: "5000"
     - require:
