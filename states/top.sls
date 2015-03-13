@@ -22,3 +22,8 @@ base:
   'roles:fm-player':
     - match: grain
     - fm-player
+
+  # FM API
+  'roles:fm-api':
+    - match: grain
+    - fm-api
