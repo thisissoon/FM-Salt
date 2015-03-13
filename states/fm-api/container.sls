@@ -13,6 +13,15 @@
     - require:
       - stateconf: docker::goal
 
+# Remove old contains if the image has changed
+.remove-old:
+  fm.remove_container_if_old:
+    - container_id: fm-api
+    - image: soon/fm-api
+    - tag: latest
+    - watch:
+      - docker: .image
+
 # Create Container
 .container:
   docker.installed:
@@ -42,6 +51,10 @@
         HostPort: "5000"
     - require:
       - docker: .container
+
+# Cleanup Old Images
+.cleanup:
+  fm.cleanup_docker_images
 
 # Run DB Migrations on changes to the container
 .migrate:
