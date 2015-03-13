@@ -16,6 +16,6 @@
   module.run:
     - name: s3.get
     - bucket: thisissoon-fm
-    - path: /spotify.key
+    - path: /soon_spotify.key
     - local_file: /spotify.key
     - bin: True
