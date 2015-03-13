@@ -8,5 +8,6 @@
 include:
   - docker
   - redis
+  - nginx
 
   - ..container
