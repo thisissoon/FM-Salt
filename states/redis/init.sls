@@ -13,6 +13,8 @@
     - reload: True
     - watch:
       - pkg: .redis
+    - require:
+      - pkg: .redis
 
 .redis-py:
   pip.installed:
