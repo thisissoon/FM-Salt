@@ -14,7 +14,7 @@
     - context:
       SPOTIFY_USER: {{ pillar['spotify.user'] }}
       SPOTIFY_PASS: {{ pillar['spotify.pass'] }}
-      REDIS_URI: redis://192.168.1.80:6379/
+      REDIS_URI: redis://redis.thisissoon.fm:6379/
       REDIS_DB: 0
       REDIS_CHANNEL: fm:events
 
