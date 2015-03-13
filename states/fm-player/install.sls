@@ -4,13 +4,18 @@
 # Installs Dependant Packages
 #
 
+# Install the player from GitHub
 .fm-player:
   pip.installed:
     - name: git+https://github.com/thisissoon/FM-Player.git@master
     - require:
       - stateconf: python::goal
 
+# Download the Spotify Key from S3
 .spotify-key:
-  file.managed:
-    - name: /spotify.key
-    - source: s3://thisissoon-fm.s3.amazonaws.com/soon_spotify.key
+  module.run:
+    - name: s3.get
+    - bucket: thisissoon-fm
+    - path: /spotify.key
+    - local_file: /spotify.key
+    - bin: True
