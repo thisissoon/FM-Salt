@@ -34,7 +34,7 @@
       - GUNICORN_PORT: 5000
       - GUNICORN_WORKERS: 8
       - FM_SETTINGS_MODULE: fm.config.default
-      - REDIS_SERVER_URI: redis://redis.thisissoon.fm/6379
+      - REDIS_SERVER_URI: redis://redis.thisissoon.fm/6379/
       - REDIS_DB: 0
       - REDIS_CHANNEL: fm:events
       - SQLALCHEMY_DATABASE_URI: {{ pillar['rds.uri'] }}
