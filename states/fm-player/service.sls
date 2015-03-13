@@ -26,3 +26,6 @@
     - require:
       - file: .init
       - stateconf: ..install::goal
+    - watch:
+      - file: .init
+      - pip: ..install::fm-player
