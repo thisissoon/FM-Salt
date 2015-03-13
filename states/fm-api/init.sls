@@ -9,4 +9,4 @@ include:
   - docker
   - redis
 
-  - .container
+  - ..container
