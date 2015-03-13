@@ -25,7 +25,7 @@
     - enabled: True
     - require:
       - file: .init
-      - stateconf: ..install::goal
+      - stateconf: .install::goal
     - watch:
       - file: .init
-      - pip: ..install::fm-player
+      - pip: .install::fm-player
