@@ -7,3 +7,4 @@
 
 include:
   - docker
+  - redis
