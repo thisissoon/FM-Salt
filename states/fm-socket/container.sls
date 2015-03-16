@@ -41,10 +41,6 @@
 .running:
   docker.running:
     - name: fm-socket
-    - port_bindings:
-        "6000/tcp":
-            HostIp: ""
-            HostPort: "6000"
     - require:
       - docker: .container
 

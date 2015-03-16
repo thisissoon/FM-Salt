@@ -10,5 +10,7 @@
     - source: salt://fm-socket/files/socket.thisissoon.fm.conf
     - mode: 644
     - template: jinja
+    - require:
+      - stateconf: .container::goal
     - watch_in:
       - service: nginx::nginx
