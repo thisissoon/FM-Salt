@@ -32,7 +32,6 @@
     - environment:
       - SOCKET_PORT: 6000
       - SOCKET_LOG_LEVEL: 'info'
-      - FM_SETTINGS_MODULE: fm.config.default
       - REDIS_SERVER_URI: redis://redis.thisissoon.fm:6379/
       - REDIS_CHANNEL: fm:events
     - require:
