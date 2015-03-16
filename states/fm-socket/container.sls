@@ -32,7 +32,7 @@
     - environment:
       - SOCKET_PORT: 6000
       - SOCKET_LOG_LEVEL: 'info'
-      - REDIS_SERVER_URI: redis://redis.thisissoon.fm:6379/
+      - REDIS_URI: redis://redis.thisissoon.fm:6379/
       - REDIS_CHANNEL: fm:events
     - require:
       - docker: .image
