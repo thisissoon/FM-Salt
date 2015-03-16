@@ -31,7 +31,7 @@
       - 6000/tcp
     - environment:
       - SOCKET_PORT: 6000
-      - SOCKET_LOG_LEVEL: 'info'
+      - SOCKET_LOG_LEVEL: 'verbose'
       - REDIS_URI: redis://redis.thisissoon.fm:6379/
       - REDIS_CHANNEL: fm:events
     - require:
