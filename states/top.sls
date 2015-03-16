@@ -32,3 +32,8 @@ base:
   'roles:fm-socket':
     - match: grain
     - fm-socket
+
+  # FM Slack
+  'roles:fm-slack':
+    - match: grain
+    - fm-slack
