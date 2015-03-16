@@ -7,7 +7,7 @@
 .proxy:
   file.managed:
     - name: /etc/nginx/proxy.html
-    - source: salt://fm-socket/files/proxy.html
+    - source: salt://fm-api/files/proxy.html
     - mode: 644
 
 .nginx:
