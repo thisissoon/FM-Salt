@@ -37,3 +37,8 @@ base:
   'roles:fm-slack':
     - match: grain
     - fm-slack
+
+  # FM Frontend
+  'roles:fm-frontend':
+    - match: grain
+    - fm-frontend
