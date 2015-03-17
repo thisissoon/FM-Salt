@@ -22,7 +22,7 @@
 .service:
   service.running:
     - name: fm-player
-    - enabled: True
+    - enable: True
     - require:
       - file: .init
       - stateconf: .install::goal
