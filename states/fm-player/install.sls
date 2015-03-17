@@ -9,6 +9,7 @@
   pip.installed:
     - name: git+https://github.com/thisissoon/FM-Player.git@master
     - force_reinstall: True
+    - exists_action: w
     - require:
       - stateconf: python::goal
 
