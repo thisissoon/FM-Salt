@@ -8,6 +8,7 @@
 .fm-player:
   pip.installed:
     - name: git+https://github.com/thisissoon/FM-Player.git@master
+    - force_reinstall: True
     - require:
       - stateconf: python::goal
 
