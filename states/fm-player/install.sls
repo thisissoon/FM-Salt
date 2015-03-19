@@ -8,7 +8,7 @@
 .fm-player:
   pip.installed:
     - name: fmplayer
-    - editable: git+https://github.com/thisissoon/FM-Player.git@master#fmplayer
+    - editable: git+https://github.com/thisissoon/FM-Player.git@master#egg=fmplayer
     - force_reinstall: True
     - exists_action: w
     - require:
