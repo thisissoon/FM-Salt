@@ -38,6 +38,9 @@
       - REDIS_DB: 0
       - REDIS_CHANNEL: fm:events
       - SQLALCHEMY_DATABASE_URI: {{ pillar['rds.uri'] }}
+      - GOOGLE_CLIENT_ID: {{ pillar['google.client.id'] }}
+      - GOOGLE_CLIENT_SECRET: {{ pillar['google.client.secret'] }}
+      - GOOGLE_REDIRECT_URI: https://thisissoon.fm
     - require:
       - docker: .image
 
