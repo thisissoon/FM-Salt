@@ -42,6 +42,7 @@
       - GOOGLE_CLIENT_ID: {{ pillar['google.client.id'] }}
       - GOOGLE_CLIENT_SECRET: {{ pillar['google.client.secret'] }}
       - GOOGLE_REDIRECT_URI: https://thisissoon.fm
+      - CORS_ACA_ORIGIN: https://thisissoon.fm
     - require:
       - docker: .image
 
