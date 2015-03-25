@@ -30,7 +30,7 @@
     - ports:
       - 5000/tcp
     - environment:
-      - SERVER_NAME: https://api.thisissoon.fm
+      - SERVER_NAME: api.thisissoon.fm
       - GUNICORN_HOST: 0.0.0.0
       - GUNICORN_PORT: 5000
       - GUNICORN_WORKERS: 8
