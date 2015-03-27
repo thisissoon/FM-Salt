@@ -18,6 +18,6 @@
     - template: jinja
     - require:
       - file: .proxy
-      - stateconf: .container::goal
+      - stateconf: .api::goal
     - watch_in:
       - service: nginx::nginx
