@@ -20,7 +20,7 @@
     - image: soon/fm-api:latest
     - ports:
       - 5000/tcp
-    - environment: __salt__['fm.api_env']()
+    - environment: __salt__['fm.api_env']
     - require:
       - docker: .image::image
 
