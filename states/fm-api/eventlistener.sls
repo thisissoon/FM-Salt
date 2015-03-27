@@ -20,6 +20,7 @@
     - image: soon/fm-api:latest
     - ports:
       - 5000/tcp
+    - command: manage.py runeventlistener
     - environment:
       - SERVER_NAME: api.thisissoon.fm
       - GUNICORN_HOST: 0.0.0.0
@@ -41,7 +42,6 @@
 .running:
   docker.running:
     - name: fm-api-events
-    - command: manage.py runeventlistener
     - require:
       - docker: .container
 
