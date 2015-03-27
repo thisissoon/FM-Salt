@@ -10,5 +10,7 @@ include:
   - redis
   - nginx
 
-  - ..container
+  - ..image
+  - ..api
+  - ..eventlistener
   - ..nginx

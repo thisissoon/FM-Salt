@@ -1,17 +1,8 @@
 #!stateconf yaml . jinja
 
 #
-# Download the soon/fm-api Container
+# Run the API Container
 #
-
-# Pull latest Image
-.image:
-  docker.pulled:
-    - name: soon/fm-api
-    - tag: latest
-    - force: true
-    - require:
-      - stateconf: docker::goal
 
 # Remove old contains if the image has changed
 .remove-old:
@@ -20,7 +11,7 @@
     - image: soon/fm-api
     - tag: latest
     - watch:
-      - docker: .image
+      - docker: .image::image
 
 # Create Container
 .container:
@@ -31,7 +22,7 @@
       - 5000/tcp
     - environment: __salt__['fm.api_env']()
     - require:
-      - docker: .image
+      - docker: .image::image
 
 # Run the Installed Container
 .running:
