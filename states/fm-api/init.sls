@@ -13,4 +13,5 @@ include:
   - ..image
   - ..api
   - ..eventlistener
+  - ..celery
   - ..nginx
