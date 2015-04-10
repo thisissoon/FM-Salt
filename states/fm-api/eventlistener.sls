@@ -22,6 +22,7 @@
       - 5000/tcp
     - command: manage.py runeventlistener
     - environment:
+      - C_FORCE_ROOT: true
       - SERVER_NAME: api.thisissoon.fm
       - GUNICORN_HOST: 0.0.0.0
       - GUNICORN_PORT: 5000
