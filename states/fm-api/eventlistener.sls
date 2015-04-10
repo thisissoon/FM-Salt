@@ -28,6 +28,7 @@
       - GUNICORN_WORKERS: 8
       - FM_SETTINGS_MODULE: fm.config.default
       - REDIS_SERVER_URI: redis://redis.thisissoon.fm:6379/
+      - CELERY_BROKER_URL: redis://redis.thisissoon.fm:6379/0
       - REDIS_DB: 0
       - REDIS_CHANNEL: fm:events
       - SQLALCHEMY_DATABASE_URI: {{ pillar['rds.uri'] }}
