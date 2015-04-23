@@ -53,6 +53,6 @@
 # Run DB Migrations on changes to the container
 .migrate:
   cmd.wait:
-    - name: docker exec fm-api manage.py db upgrade
+    - name: docker exec fm-api ./manage.py db upgrade
     - watch:
       - docker: .running

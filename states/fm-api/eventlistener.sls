@@ -20,7 +20,7 @@
     - image: soon/fm-api:latest
     - ports:
       - 5000/tcp
-    - command: manage.py runeventlistener
+    - command: ./manage.py runeventlistener
     - environment:
       - C_FORCE_ROOT: true
       - SERVER_NAME: api.thisissoon.fm
