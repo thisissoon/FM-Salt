@@ -17,6 +17,7 @@
       REDIS_URI: redis://redis.thisissoon.fm:6379/
       REDIS_DB: 0
       REDIS_CHANNEL: fm:events
+      MIXER_NAME: 'Digital'
 
 # Upstart Service
 .service:
