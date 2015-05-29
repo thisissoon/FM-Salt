@@ -18,6 +18,8 @@
       REDIS_DB: 0
       REDIS_CHANNEL: fm:events
       MIXER_NAME: 'Digital'
+      MIN_VOLUME: 18
+      MAX_VOLUME: 68
 
 # Upstart Service
 .service:
