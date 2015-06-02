@@ -7,7 +7,7 @@
 # Pull latest Image
 .image:
   docker.pulled:
-    - name: soon/fm-frontend
+    - name: quay.io/soon/fm-frontend
     - tag: latest
     - force: true
     - require:
