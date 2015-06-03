@@ -18,6 +18,8 @@
     - env:
       - GOPATH: /soundwave
     - require:
+      - stateconf: git::goal
+      - stateconf: mercurial::goal
       - stateconf: libffi::goal
       - stateconf: golang::goal
       - stateconf: libspotify::goal

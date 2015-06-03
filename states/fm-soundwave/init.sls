@@ -7,6 +7,8 @@
 include:
   # Dependencies
   - libffi
+  - git
+  - mercurial
   - golang
   - libspotify
   - portaudio19-dev
