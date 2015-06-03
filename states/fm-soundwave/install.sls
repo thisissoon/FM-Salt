@@ -27,7 +27,7 @@
 
 .build:
   cmd.run:
-    - name: go build -o /usr/local/bin/soundwave github.com/thisissoon/FM-SoundWave/cmd
+    - name: go install github.com/thisissoon/FM-SoundWave/...
     - env:
       - GOPATH: /soundwave
     - require:
