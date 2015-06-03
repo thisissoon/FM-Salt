@@ -22,6 +22,7 @@ base:
   'roles:fm-player':
     - match: grain
     - fm-player
+    - fm-soundwave
 
   # FM API
   'roles:fm-api':
