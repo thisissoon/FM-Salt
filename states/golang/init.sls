@@ -4,6 +4,11 @@
 # Ensure golang is installed
 #
 
+include:
+  - python
+  - python-software-properties
+  - apt-transport-https
+
 .key:
   cmd.run:
     - name: wget https://xivilization.net/~marek/raspbian/xivilization-raspbian.gpg.key -O - | sudo apt-key add -
