@@ -14,7 +14,7 @@
 
 .get:
   cmd.run:
-    - name: go get github.com/thisissoon/FM-SoundWave/cmd
+    - name: go get github.com/thisissoon/FM-SoundWave/...
     - env:
       - GOPATH: /soundwave
     - require:
