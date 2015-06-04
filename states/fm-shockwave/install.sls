@@ -6,7 +6,7 @@
 
 .get:
   cmd.run:
-    - name: go get github.com/thisissoon/FM-Shockwave/...
+    - name: go get -u github.com/thisissoon/FM-Shockwave/...
     - env:
       - GOPATH: /shockwave
     - require:
