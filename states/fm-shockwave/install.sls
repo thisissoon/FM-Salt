@@ -8,7 +8,7 @@
   cmd.run:
     - name: go get github.com/thisissoon/FM-Shockwave/...
     - env:
-      - GOPATH: /soundwave
+      - GOPATH: /shockwave
     - require:
       - stateconf: git::goal
       - stateconf: mercurial::goal
