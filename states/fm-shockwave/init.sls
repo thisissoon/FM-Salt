@@ -14,6 +14,6 @@ include:
   - libasound2
   - g++
 
-  # Install the player and the service
+  # Install shockwave and the service
   - ..install
-  #- ..service
+  - ..service
