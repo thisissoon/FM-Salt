@@ -1,7 +1,7 @@
 #!stateconf yaml . jinja
 
 #
-# FM SoundWave Salt States
+# FM Shockwave Salt States
 #
 
 include:
@@ -11,7 +11,8 @@ include:
   - mercurial
   - golang
   - libspotify
-  - portaudio19-dev
+  - libasound2-dev
+  - g++
 
   # Install the player and the service
   - ..install
