@@ -15,3 +15,4 @@ include:
 
   # Install the player and the service
   - ..install
+  - ..service
