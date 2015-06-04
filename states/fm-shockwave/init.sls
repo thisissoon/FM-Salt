@@ -11,7 +11,7 @@ include:
   - mercurial
   - golang
   - libspotify
-  - libasound2-dev
+  - libasound2
   - g++
 
   # Install the player and the service

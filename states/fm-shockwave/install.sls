@@ -16,7 +16,7 @@
       - stateconf: libffi::goal
       - stateconf: golang::goal
       - stateconf: libspotify::goal
-      - stateconf: libasound2-dev::goal
+      - stateconf: libasound2::goal
 
 .build:
   cmd.run:

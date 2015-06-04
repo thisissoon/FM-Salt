@@ -23,6 +23,7 @@ base:
     - match: grain
     # - fm-player
     - fm-soundwave
+    - fm-shockwave
 
   # FM API
   'roles:fm-api':
