@@ -17,7 +17,7 @@
 .remove-old:
   fm.remove_container_if_old:
     - container_id: fm-frontend
-    - image: soon/fm-frontend
+    - image: quay.io/thisissoon/fm-frontend
     - tag: latest
     - watch:
       - docker: .image
@@ -26,7 +26,7 @@
 .container:
   docker.installed:
     - name: fm-frontend
-    - image: soon/fm-frontend:latest
+    - image: quay.io/thisissoon/fm-frontend:latest
     - ports:
       - 80/tcp
     - require:
