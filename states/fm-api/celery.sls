@@ -8,7 +8,7 @@
 .remove-old:
   fm.remove_container_if_old:
     - container_id: fm-api-celery
-    - image: soon/fm-api
+    - image: quay.io/thisissoon/fm-api
     - tag: latest
     - watch:
       - docker: .image::image
@@ -17,7 +17,7 @@
 .container:
   docker.installed:
     - name: fm-api-celery
-    - image: soon/fm-api:latest
+    - image: quay.io/thisissoon/fm-api:latest
     - ports:
       - 5000/tcp
     - command: celery -A fm.tasks.app worker -l info -c 12
