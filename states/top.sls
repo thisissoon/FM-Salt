@@ -44,3 +44,7 @@ base:
   'roles:fm-frontend':
     - match: grain
     - fm-frontend
+
+  'roles:fm-redis'
+    - match: grain
+    - redis
