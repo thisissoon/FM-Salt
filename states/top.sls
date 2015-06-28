@@ -21,7 +21,6 @@ base:
   # FM Player
   'roles:fm-player':
     - match: grain
-    - openvpn
     - fm-soundwave
     - fm-shockwave
 
