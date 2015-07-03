@@ -44,6 +44,7 @@ base:
     - match: grain
     - fm-frontend
 
-  'roles:fm-redis'
+  # Redis Proxy
+  'roles:fm-redis-proxy'
     - match: grain
-    - redis
+    - nutcracker

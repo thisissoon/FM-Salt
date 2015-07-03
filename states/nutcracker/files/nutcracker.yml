@@ -1,0 +1,14 @@
+# Nutcracker Configuration - Redis / Memcached Proxy
+
+soonfmredis:
+  listen: {{ listen_ip }}:{{ listen_port }}
+  hash: fnv1a_64
+  distribution: ketama
+  auto_eject_hosts: true
+  redis: true
+  server_retry_timeout: 2000
+  server_failure_limit: 1
+  servers:
+    {% for server in servers -%}
+    - {{ server['addr'] }}:{{ server['port'] }}:{{ server['db'] }}
+    {%- endfor %}
