@@ -8,7 +8,7 @@
 
 {% set listen_ip = '0.0.0.0' %}
 {% set listen_port = '22121' %}
-{% set servers = [{'addr': 'redis.fm.internal', 'port': 6379, 'db': 0}] %}
+{% set servers = [{'addr': 'redis.fm.internal', 'port': 6379, 'weighting': 1}] %}
 
 # Include Dependency States
 include:

@@ -48,3 +48,4 @@ base:
   'roles:fm-redis-proxy':
     - match: grain
     - nutcracker
+    - python
