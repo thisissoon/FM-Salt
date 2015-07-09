@@ -8,7 +8,7 @@
 .image:
   docker.pulled:
     - name: quay.io/thisissoon/fm-api
-    - tag: latest
+    - tag: prod
     - force: true
     - require:
       - stateconf: docker::goal

@@ -9,7 +9,7 @@
   fm.remove_container_if_old:
     - container_id: fm-api
     - image: quay.io/thisissoon/fm-api
-    - tag: latest
+    - tag: prod
     - watch:
       - docker: .image::image
 
@@ -17,7 +17,7 @@
 .container:
   docker.installed:
     - name: fm-api
-    - image: quay.io/thisissoon/fm-api:latest
+    - image: quay.io/thisissoon/fm-api:prod
     - ports:
       - 5000/tcp
     - environment:
