@@ -29,6 +29,11 @@ base:
     - match: grain
     - fm-api
 
+  # FM API
+  'roles:fm-stats':
+    - match: grain
+    - fm-stats
+
   # FM Sockets
   'roles:fm-socket':
     - match: grain
