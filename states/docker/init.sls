@@ -33,6 +33,6 @@ include:
   pip.installed:
     - name: docker-py
     - reload_modules: True
-    - requie:
+    - require:
       - pkg: .docker
-      - stateconf: python.install::goal
+      - stateconf: python::goal
