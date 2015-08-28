@@ -9,3 +9,5 @@ cat <<EOF >/etc/salt/grains
 roles:
   - salt-master
 EOF
+
+ln -s /srv/pillar/example_s3.sls /srv/pillar/s3.sls

@@ -28,8 +28,8 @@
     - name: fm-stats
     - image: quay.io/thisissoon/fm-stats:prod
     - environment:
-      - AWS_S3_ACCESS_KEY: {{ pillar['s3.keyid'] }}
-      - AWS_S3_SECRET_KEY: {{ pillar['s3.key'] }}
+      - AWS_S3_ACCESS_KEY: {{ pillar['s3']['key'] }}
+      - AWS_S3_SECRET_KEY: {{ pillar['s3']['secret_key'] }}
       - BROKER_URI: redis://redis.thisissoon.fm:6379/
       - EXPORT_BUCKET_NAME: thisissoon-fm
     - require:
