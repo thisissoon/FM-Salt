@@ -1,0 +1,10 @@
+# Port
+port: 9000
+# Log Level
+log_leveL: info
+# Redis Host
+redis_host: redis.service
+# Secrets
+clients:
+  soundwave: {{ pillar.get('soundwave_secret' }}
+  shockwave: {{ pillar.get('shockwave_secret' }}

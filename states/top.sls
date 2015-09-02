@@ -54,3 +54,8 @@ base:
     - match: grain
     - nutcracker
     - python
+
+  # Perceptor
+  'roles:fm-perceptor':
+    - match: grain
+    - fm-perceptor
