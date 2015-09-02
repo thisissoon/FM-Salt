@@ -43,7 +43,7 @@
 # Run the Installed Container
 .running:
   docker.running:
-    - name: fm-socket
+    - name: fm-perceptor
     - require:
       - docker: .container
     - watch:
