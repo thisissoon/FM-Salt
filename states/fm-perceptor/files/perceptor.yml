@@ -6,5 +6,5 @@ log_leveL: info
 redis_host: redis.service
 # Secrets
 clients:
-  soundwave: {{ pillar.get('soundwave_secret' }}
-  shockwave: {{ pillar.get('shockwave_secret' }}
+  soundwave: {{ pillar.get('soundwave_secret') }}
+  shockwave: {{ pillar.get('shockwave_secret') }}
