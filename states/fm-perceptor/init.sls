@@ -4,11 +4,11 @@
 # FM-Perceptor Deployment via Docker
 #
 
-# Pull latest Image
+# Pull Production Image
 .image:
   docker.pulled:
     - name: soon/fm-perceptor
-    - tag: latest
+    - tag: prod
     - force: true
     - require:
       - stateconf: docker::goal
@@ -18,7 +18,7 @@
   fm.remove_container_if_old:
     - container_id: fm-perceptor
     - image: soon/fm-perceptor
-    - tag: latest
+    - tag: prod
     - watch:
       - docker: .image
 
@@ -33,7 +33,7 @@
 .container:
   docker.installed:
     - name: fm-perceptor
-    - image: soon/fm-perceptor:latest
+    - image: soon/fm-perceptor:prod
     - ports:
       - 9000/tcp
     - require:
