@@ -51,8 +51,6 @@
         /etc/perceptor: /etc/perceptor
     - require:
       - docker: .container
-    - watch:
-      - file: .config
 
 # Cleanup Old Images
 .cleanup:
