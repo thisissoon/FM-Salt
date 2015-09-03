@@ -36,6 +36,8 @@
     - image: soon/fm-perceptor:prod
     - ports:
       - 9000/tcp
+    - volumes:
+      - /etc/perceptor/perceptor.yml
     - require:
       - docker: .image
       - file: .config
@@ -45,8 +47,7 @@
   docker.running:
     - name: fm-perceptor
     - volumes:
-      - /etc/perceptor/perceptor.yml:
-          bind: /etc/perceptor/perceptor.yml
+      - /etc/perceptor/perceptor.yml: /etc/perceptor/perceptor.yml
     - require:
       - docker: .container
     - watch:
