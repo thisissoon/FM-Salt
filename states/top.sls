@@ -21,6 +21,8 @@ base:
   # FM Player
   'roles:fm-player':
     - match: grain
+    - python
+    - redis
     - fm-soundwave
     - fm-shockwave
 
