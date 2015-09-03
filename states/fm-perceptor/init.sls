@@ -45,7 +45,8 @@
   docker.running:
     - name: fm-perceptor
     - volumes:
-      - "/etc/perceptor/perceptor.yml:/etc/perceptor/perceptor.yml"
+      - /etc/perceptor/perceptor.yml:
+          bind: /etc/perceptor/perceptor.yml
     - require:
       - docker: .container
     - watch:
