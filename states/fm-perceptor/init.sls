@@ -39,7 +39,7 @@
     - volumes:
       - /etc/perceptor
     - environment:
-      - PERCEPTOR_LOG_LEVEL: debug
+      - PERCEPTOR_LOG_LEVEL: warn
     - require:
       - docker: .image
       - file: .config
