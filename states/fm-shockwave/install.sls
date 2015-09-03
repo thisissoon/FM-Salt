@@ -20,7 +20,7 @@
 
 .build:
   cmd.run:
-    - name: go install github.com/thisissoon/FM-Shockwave/...
+    - name: go install github.com/thisissoon/FM-Shockwave/cmd/shockwave
     - env:
       - GOPATH: /shockwave
     - require:
