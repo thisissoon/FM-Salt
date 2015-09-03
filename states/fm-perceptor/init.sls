@@ -38,6 +38,8 @@
       - 9000/tcp
     - volumes:
       - /etc/perceptor
+    - environment:
+      - PERCEPTOR_LOG_LEVEL: debug
     - require:
       - docker: .image
       - file: .config
@@ -46,7 +48,6 @@
 .running:
   docker.running:
     - name: fm-perceptor
-    - volumes:
     - binds:
         /etc/perceptor: /etc/perceptor
     - require:
