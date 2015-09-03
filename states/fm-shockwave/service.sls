@@ -12,8 +12,8 @@
     - mode: 644
     - template: jinja
     - context:
-      REDIS_ADDRESS: redis.thisissoon.fm:6379
-      REDIS_CHANNEL: fm:events
+      PERCEPTOR: perceptor.thisissoon.fm
+      SECRET: {{ pillar.get('shockwave_secret') }}
       MAX_VOLUME: 70
       MIN_VOLUME: 16
       MIXER: Digital
