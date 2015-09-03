@@ -37,7 +37,7 @@
     - ports:
       - 9000/tcp
     - volumes:
-      - /etc/perceptor/perceptor.yml
+      - /etc/perceptor
     - require:
       - docker: .image
       - file: .config
@@ -47,7 +47,7 @@
   docker.running:
     - name: fm-perceptor
     - volumes:
-      - /etc/perceptor/perceptor.yml: /etc/perceptor/perceptor.yml
+      - /etc/perceptor: /etc/perceptor
     - require:
       - docker: .container
     - watch:
