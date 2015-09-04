@@ -1,0 +1,7 @@
+log_level: debug
+perceptor_address: perceptor.thisissoon.fm
+secret: {{ pillar.get('soundwave_secret') }}
+spotify:
+  user: {{ pillar.get('spotify.user') }}
+  pass: {{ pillar.get('spotify.pass') }}
+  key: /spotify.key

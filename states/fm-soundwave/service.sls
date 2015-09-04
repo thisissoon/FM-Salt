@@ -11,13 +11,13 @@
     - source: salt://fm-soundwave/files/upstart.service.conf
     - mode: 644
     - template: jinja
-    - context:
-      SPOTIFY_USER: {{ pillar['spotify.user'] }}
-      SPOTIFY_PASS: {{ pillar['spotify.pass'] }}
-      SPOTIFY_KEY: /spotify.key
-      REDIS_ADDRESS: redis.thisissoon.fm:6379
-      REDIS_CHANNEL: fm:events
-      REDIS_QUEUE: fm:player:queue
+
+.config:
+  file.managed:
+    - name: /etc/soundwave/config.yml
+    - source: salt://fm-soundwave/files/config.yml
+    - mode: 644
+    - template: jinja
 
 # Upstart Service
 .service:
@@ -29,4 +29,5 @@
       - stateconf: .install::goal
     - watch:
       - file: .init
+      - file: .config
       - cmd: .install::build
