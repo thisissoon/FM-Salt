@@ -18,6 +18,7 @@
     - source: salt://fm-soundwave/files/config.yml
     - mode: 644
     - template: jinja
+    - makedirs: True
 
 # Upstart Service
 .service:

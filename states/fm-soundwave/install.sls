@@ -4,13 +4,13 @@
 # Install FM-SoundWave
 #
 
-.spotify-key:
-  module.run:
-    - name: s3.get
-    - bucket: thisissoon-fm
-    - path: soon_spotify.key
-    - local_file: /spotify.key
-    - bin: True
+# .spotify-key:
+#   module.run:
+#     - name: s3.get
+#     - bucket: thisissoon-fm
+#     - path: soon_spotify.key
+#     - local_file: /spotify.key
+#     - bin: True
 
 .get:
   cmd.run:
