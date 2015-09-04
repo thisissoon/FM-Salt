@@ -1,6 +1,6 @@
 log_level: debug
 perceptor_address: perceptor.thisissoon.fm
 secret: {{ pillar.get('shockwave_secret') }}
-max: 70
+max: 68
 min: 18
 mixer: Digital
