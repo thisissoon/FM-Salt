@@ -11,12 +11,14 @@
     - source: salt://fm-shockwave/files/upstart.service.conf
     - mode: 644
     - template: jinja
-    - context:
-      PERCEPTOR: perceptor.thisissoon.fm
-      SECRET: {{ pillar.get('shockwave_secret') }}
-      MAX_VOLUME: 70
-      MIN_VOLUME: 16
-      MIXER: Digital
+
+.config:
+  file.managed:
+    - name: /etc/shockwave/config.yml
+    - source: salt://fm-shockwave/files/config.yml
+    - mode: 644
+    - template: jinja
+    - makedirs: True
 
 # Upstart Service
 .service:
@@ -28,4 +30,5 @@
       - stateconf: .install::goal
     - watch:
       - file: .init
+      - file: .config
       - cmd: .install::build
