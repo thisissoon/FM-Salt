@@ -18,6 +18,7 @@ Vagrant.configure('2') do |config|
     master.vm.hostname = 'salt.soonfm.internal'
     master.vm.provision :shell, path: "master_bootstrap.sh"
     master.vm.synced_folder "./states", "/srv/salt", type: "nfs"
+    master.vm.synced_folder "./pillar", "/srv/pillar", type: "nfs"
     master.vm.synced_folder "./master.d", "/etc/salt/master.d", type: "nfs"
   end
 
