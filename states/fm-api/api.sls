@@ -8,10 +8,6 @@
 {% set tag = 'prod' %}
 {% set port = 34000 %}
 
-include:
-  - docker
-  - nginx
-
 .image:
   dockerng.image_present:
     - name: {{ image }}:{{ tag }}
