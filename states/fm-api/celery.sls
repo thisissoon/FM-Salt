@@ -4,50 +4,32 @@
 # Run the Celery API Container
 #
 
-# Remove old contains if the image has changed
-.remove-old:
-  fm.remove_container_if_old:
-    - container_id: fm-api-celery
-    - image: quay.io/thisissoon/fm-api
-    - tag: prod
-    - watch:
-      - docker: .image::image
+{% set image = 'quay.io/thisissoon/fm-api' %}
+{% set tag = 'prod' %}
 
-# Create Container
+.image:
+  dockerng.image_present:
+    - name: {{ image }}:{{ tag }}
+    - force: True
+    - require:
+      - stateconf: docker::goal
+
 .container:
-  docker.installed:
-    - name: fm-api-celery
-    - image: quay.io/thisissoon/fm-api:prod
-    - ports:
-      - 5000/tcp
+  dockerng.running:
+    - name: soon.fm.celery
+    - image: {{ image }}:{{ tag }}
+    - restart_policy: always
     - command: celery -A fm.tasks.app worker -l info -c 12
     - environment:
       - C_FORCE_ROOT: true
-      - SERVER_NAME: api.thisissoon.fm
-      - GUNICORN_HOST: 0.0.0.0
-      - GUNICORN_PORT: 5000
-      - GUNICORN_WORKERS: 8
       - FM_SETTINGS_MODULE: fm.config.default
-      - REDIS_SERVER_URI: redis://redis.thisissoon.fm:6379/
-      - CELERY_BROKER_URL: redis://redis.thisissoon.fm:6379/0
+      - REDIS_SERVER_URI: redis://172.17.0.1:6379/
+      - CELERY_BROKER_URL: redis://172.17.0.1:6379/0
       - REDIS_DB: 0
       - REDIS_CHANNEL: fm:events
-      - SQLALCHEMY_DATABASE_URI: {{ pillar['rds.uri'] }}
-      - GOOGLE_CLIENT_ID: {{ pillar['google.client.id'] }}
-      - GOOGLE_CLIENT_SECRET: {{ pillar['google.client.secret'] }}
-      - GOOGLE_REDIRECT_URI: https://thisissoon.fm/
-      - ECHONEST_API_KEY: CIJ9BRHQVCOULALBX
-      - CORS_ACA_ORIGIN: https://thisissoon.fm
-    - require:
-      - docker: .image::image
-
-# Run the Installed Container
-.running:
-  docker.running:
-    - name: fm-api-celery
-    - require:
-      - docker: .container
-
-# Cleanup Old Images
-.cleanup:
-  fm.cleanup_docker_images
+      - SQLALCHEMY_DATABASE_URI: {{ salt['pillar.get']('services:api:db') }}
+      - GOOGLE_CLIENT_ID: {{ salt['pillar.get']('google:client:id') }}
+      - GOOGLE_CLIENT_SECRET: {{ salt['pillar.get']('google:client:secret') }}
+      - ECHONEST_API_KEY: {{ salt['pillar.get']('echonest:key') }}
+    - watch:
+      - dockerng: .image

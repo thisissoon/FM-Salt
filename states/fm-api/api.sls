@@ -17,13 +17,13 @@
 
 .container:
   dockerng.running:
-    - name: {{ name }}
+    - name: soon.fm.api
     - image: {{ image }}:{{ tag }}
     - restart_policy: always
     - port_bindings:
       - {{ port }}:5000
     - environment:
-      - SERVER_NAME: api.thisissoon.fm
+      - SERVER_NAME: {{ salt['pillar.get']('services:api:server_name', 'api.thisissoon.fm') }}
       - GUNICORN_HOST: 0.0.0.0
       - GUNICORN_PORT: 5000
       - GUNICORN_WORKERS: 8
@@ -35,9 +35,9 @@
       - SQLALCHEMY_DATABASE_URI: {{ salt['pillar.get']('services:api:db') }}
       - GOOGLE_CLIENT_ID: {{ salt['pillar.get']('google:client:id') }}
       - GOOGLE_CLIENT_SECRET: {{ salt['pillar.get']('google:client:secret') }}
-      - GOOGLE_REDIRECT_URI: https://thisissoon.fm/
+      - GOOGLE_REDIRECT_URI: {{ salt['pillar.get']('services:api:google:redirect', 'https://thisissoon.fm/') }}
       - ECHONEST_API_KEY: {{ salt['pillar.get']('echonest:key') }}
-      - CORS_ACA_ORIGIN: https://thisissoon.fm
+      - CORS_ACA_ORIGIN: {{ salt['pillar.get']('services:api:cors_aca_origin', 'https://thisissoon.fm') }}
     - watch:
       - dockerng: .image
 
