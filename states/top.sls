@@ -43,11 +43,6 @@ base:
     - match: grain
     - fm-socket
 
-  # FM Slack
-  'roles:fm-slack':
-    - match: grain
-    - fm-slack
-
   # FM Frontend
   'roles:fm-frontend':
     - match: grain
