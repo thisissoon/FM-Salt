@@ -7,6 +7,10 @@
 {% set image = 'quay.io/thisissoon/fm-api' %}
 {% set tag = 'prod' %}
 
+include:
+  - docker
+  - redis
+
 .image:
   dockerng.image_present:
     - name: {{ image }}:{{ tag }}
@@ -33,3 +37,5 @@
       - ECHONEST_API_KEY: {{ salt['pillar.get']('echonest:key') }}
     - watch:
       - dockerng: .image
+    - require:
+      - stateconf: redis::goal

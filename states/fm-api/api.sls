@@ -8,6 +8,12 @@
 {% set tag = 'prod' %}
 {% set port = 34000 %}
 
+include:
+  - docker
+  - nginx
+  - redis
+
+# Download latest image
 .image:
   dockerng.image_present:
     - name: {{ image }}:{{ tag }}
@@ -15,6 +21,7 @@
     - require:
       - stateconf: docker::goal
 
+# Run container
 .container:
   dockerng.running:
     - name: soon.fm.api
@@ -40,6 +47,8 @@
       - CORS_ACA_ORIGIN: {{ salt['pillar.get']('services:api:cors_aca_origin', 'https://thisissoon.fm') }}
     - watch:
       - dockerng: .image
+    - require:
+      - stateconf: redis::goal
 
 # Run DB Migrations on changes to the container
 .migrate:
@@ -47,3 +56,25 @@
     - name: docker exec fm-api ./manage.py db upgrade
     - watch:
       - dockerng: .container
+
+# Nginx Configuration for FE Proxy
+.proxy:
+  file.managed:
+    - name: /etc/nginx/proxy.html
+    - source: salt://fm-api/files/proxy.html
+    - mode: 644
+
+# Nginx Configuration
+.nginx:
+  file.managed:
+    - name: /etc/nginx/conf.d/api.thisissoon.fm.conf
+    - source: salt://fm-api/files/api.thisissoon.fm.conf
+    - mode: 644
+    - template: jinja
+    - conext:
+      port: {{ port }}
+      server_name: {{ server_name }}
+    - require:
+      - dockerng: .container
+    - watch_in:
+      - service: nginx::nginx
