@@ -17,6 +17,8 @@ base:
     - match: grain
     - python
     - redis
+    - etcd
+    - etcd.browser
 
   # FM Player
   'roles:fm-player':
@@ -31,7 +33,7 @@ base:
     - match: grain
     - fm-api
 
-  # FM API
+  # FM Stats
   'roles:fm-stats':
     - match: grain
     - fm-stats
@@ -50,12 +52,6 @@ base:
   'roles:fm-frontend':
     - match: grain
     - fm-frontend
-
-  # Redis Proxy
-  'roles:fm-redis-proxy':
-    - match: grain
-    - nutcracker
-    - python
 
   # Perceptor
   'roles:fm-perceptor':

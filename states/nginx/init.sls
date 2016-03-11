@@ -4,41 +4,42 @@
 # Install Nginx
 #
 
-include:
-  - python-software-properties
+.software-properties-common:
+  pkg.installed
 
-# Upstart Config
-.upstart:
-  file.managed:
-    - name: /etc/init/nginx.conf
-    - source: salt://nginx/files/nginx.upstart.conf
-    - mode: 644
-
-# Install Nginx
+# Installs, Configures, and runs Nginx in one State
 .nginx:
+  # Create an nginx user
   user.present:
     - name: nginx
+  # Add the nginx PPA to install the latest stable version
   pkgrepo.managed:
     - ppa: nginx/stable
     - require:
-      - stateconf: python-software-properties::goal
+      - pkg: .software-properties-common
+  # Install the nginx package
   pkg.installed:
     - name: nginx
     - require:
       - pkgrepo: .nginx
+  # Replace the nginx config with our own
   file.managed:
     - name: /etc/nginx/nginx.conf
     - source: salt://nginx/files/nginx.conf
+    - template: jinja
     - mode: 644
+    - user: nginx
+    - group: nginx
     - require:
       - pkg: .nginx
+  # Run the Nginx Service
   service.running:
     - name: nginx
-    - enable: True
-    - reload: True
+    - enable: true
+    - reload: true
     - require:
-      - file: .upstart
       - user: .nginx
+    # Restart the service whenever the config or package changes
     - watch:
       - file: .nginx
       - pkg: .nginx
