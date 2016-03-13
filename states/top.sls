@@ -25,30 +25,30 @@ base:
     - match: grain
     - python
     - redis
-    - fm-soundwave
-    - fm-shockwave
+    - fm.player.soundwave
+    - fm.player.shockwave
 
   # FM API
-  'roles:fm-api':
+  'roles:soon.fm.api':
     - match: grain
-    - fm-api
+    - fm.api
 
   # FM Stats
-  'roles:fm-stats':
+  'roles:soon.fm.stats':
     - match: grain
-    - fm-stats
+    - fm.stats
 
   # FM Sockets
-  'roles:fm-socket':
+  'roles:soon.fm.websockets':
     - match: grain
-    - fm-socket
+    - fm.websockets
 
   # FM Frontend
-  'roles:fm-frontend':
+  'roles:soon.fm.frontend':
     - match: grain
-    - fm-frontend
+    - fm.frontend
 
   # Perceptor
-  'roles:fm-perceptor':
+  'roles:soon.fm.perceptor':
     - match: grain
-    - fm-perceptor
+    - fm.perceptor

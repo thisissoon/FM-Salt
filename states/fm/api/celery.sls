@@ -25,16 +25,16 @@ include:
     - restart_policy: always
     - command: celery -A fm.tasks.app worker -l info -c 12
     - environment:
-      - C_FORCE_ROOT: true
+      - C_FORCE_ROOT: 'True'
       - FM_SETTINGS_MODULE: fm.config.default
       - REDIS_SERVER_URI: redis://172.17.0.1:6379/
       - CELERY_BROKER_URL: redis://172.17.0.1:6379/0
-      - REDIS_DB: 0
+      - REDIS_DB: '0'
       - REDIS_CHANNEL: fm:events
-      - SQLALCHEMY_DATABASE_URI: {{ salt['pillar.get']('services:api:db') }}
-      - GOOGLE_CLIENT_ID: {{ salt['pillar.get']('google:client:id') }}
-      - GOOGLE_CLIENT_SECRET: {{ salt['pillar.get']('google:client:secret') }}
-      - ECHONEST_API_KEY: {{ salt['pillar.get']('echonest:key') }}
+      - SQLALCHEMY_DATABASE_URI: {{ salt['pillar.get']('services:api:db', 'n/a') }}
+      - GOOGLE_CLIENT_ID: {{ salt['pillar.get']('google:client:id', 'n/a') }}
+      - GOOGLE_CLIENT_SECRET: {{ salt['pillar.get']('google:client:secret', 'n/a') }}
+      - ECHONEST_API_KEY: {{ salt['pillar.get']('echonest:key', 'n/a') }}
     - watch:
       - dockerng: .image
     - require:

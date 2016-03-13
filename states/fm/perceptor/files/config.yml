@@ -1,0 +1,10 @@
+# Port
+port: 9000
+# Log Level
+log_leveL: info
+# Redis Host
+redis_host: {{ redis }}
+# Secrets
+clients:
+  soundwave: {{ soundwave_secret }}
+  shockwave: {{ shockwave_secret }}
