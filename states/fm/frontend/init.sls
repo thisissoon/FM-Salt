@@ -47,3 +47,12 @@ include:
       - dockerng: .container
     - watch_in:
       - service: nginx::nginx
+
+# Lets Enrypt Config for thos Domain
+{{ le.config(server_name, 'dorks+fm@thisissoon.com') }}
+
+# Lets Encrypt Certificate Generation
+{{ le.generate_certs(server_name, require=[('file', '.le_config')]) }}
+
+# ELB
+{{ le.elb_cert(server_name, key, keyid, watch=[('cmd', '.le_generate_certs')]) }}
