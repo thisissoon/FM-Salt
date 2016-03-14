@@ -44,3 +44,18 @@
     - name: pdbpp
     - require:
       - cmd: .pip
+
+# Install Virtualenv
+.virtualenv:
+  pip.installed:
+    - name: virtualenv
+    - require:
+      - cmd: .pip
+
+# Virtualenvs Dir
+.venvdir:
+  file.directory:
+    - name: /.virtualenvs
+    - makedirs: True
+    - require:
+      - pip: .virtualenv

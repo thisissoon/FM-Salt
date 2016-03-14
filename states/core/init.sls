@@ -6,3 +6,4 @@
 
 include:
   - htop
+  - letsencrypt
