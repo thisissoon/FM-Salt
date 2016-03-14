@@ -14,6 +14,8 @@
 {% set conf_path = '/etc/letsencrypt/conf.d/' + canonical + '.conf' %}
 {% set current_path = salt['environ.get']('PATH', '/bin:/usr/bin') %}
 {% set cert_root = '/etc/letsencrypt/live' %}
+{% set python_venv_root = salt['pillar.get']('python:virtualenv:root', '/.virtualenvs') %}
+{% set venv = python_venv_root + '/' + salt['pillar.get']('letsencrypt:venv:name', 'letsencrypt') %}
 
 include:
   - fm.frontend
