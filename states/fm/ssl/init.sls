@@ -31,6 +31,7 @@ include:
       domains: {{ domains }}
       email: dorks+fm@thisissoon.com
       key_size: 4096
+      server: https://acme-staging.api.letsencrypt.org/directory
 
 {% set test_cmd = '' %}
 {% for domain in domains %}
