@@ -38,7 +38,7 @@ include:
   {% set test_cmd = test_cmd + '[ -d ' + cert_root + '/' + domain  + ' ]' %}
   {% if not loop.last %}
     {% set test_cmd = test_cmd + " && " %}
-  {% endfor %}
+  {% endif %}
 {% endfor %}
 
 .generate_certs:
