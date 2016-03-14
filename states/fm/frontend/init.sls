@@ -5,7 +5,7 @@
 #
 
 {% set image = 'quay.io/thisissoon/fm-frontend' %}
-{% set tag = 'latest' %}
+{% set tag = 'prod' %}
 {% set port = 35000 %}
 {% set server_name = salt['pillar.get']('services:frontend:server_name', 'thisissoon.fm') %}
 

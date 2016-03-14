@@ -5,7 +5,7 @@
 #
 
 {% set image = 'quay.io/thisissoon/fm-api' %}
-{% set tag = 'prod' %}
+{% set tag = 'latest' %}
 
 include:
   - docker

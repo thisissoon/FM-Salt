@@ -5,7 +5,7 @@
 #
 
 {% set image = 'soon/fm-perceptor' %}
-{% set tag = 'latest' %}
+{% set tag = 'prod' %}
 {% set port = 37000 %}
 {% set server_name = salt['pillar.get']('services:perceptor:server_name', 'perceptor.thisissoon.fm') %}
 
