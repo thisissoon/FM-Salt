@@ -46,6 +46,6 @@ include:
       server_name: {{ server_name }}
     - require:
       - dockerng: .container
-      - stateconf: .letsencrypt
+      - stateconf: letsencrypt::goal
     - watch_in:
       - service: nginx::nginx
