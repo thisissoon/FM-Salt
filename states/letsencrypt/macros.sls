@@ -47,7 +47,6 @@ include:
     - name: letsencrypt --agree-tos --config {{ config_root }}/{{ server_name }}.conf certonly
     - env:
       - PATH: {{ [current_path, venv + '/bin']|join(':') }}
-    - env: 'PATH=$PATH:{{ venv }}/bin'
     - unless: test -d {{ cert_path }}
     {% if require|length > 0 %}
     - require:
