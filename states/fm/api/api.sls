@@ -4,10 +4,15 @@
 # Run the API Container
 #
 
+{% import 'letsencrypt/macros.sls' as le with context %}
+
 {% set image = 'quay.io/thisissoon/fm-api' %}
 {% set tag = 'prod' %}
 {% set port = 34000 %}
 {% set server_name = salt['pillar.get']('services:api:server_name', 'api.thisissoon.fm') %}
+{% set cert_path = '/etc/letsencrypt/live/' + server_name %}
+{% set key = salt['pillar.get']('aws:iam:thisissoon.fm:key', 'n/a') %}
+{% set keyid = salt['pillar.get']('aws:iam:thisissoon.fm:keyid', 'n/a') %}
 
 include:
   - docker
@@ -81,3 +86,12 @@ include:
       - stateconf: letsencrypt::goal
     - watch_in:
       - service: nginx::nginx
+
+# Lets Enrypt Config for thos Domain
+{{ le.config(server_name, 'dorks+fm@thisissoon.com') }}
+
+# Lets Encrypt Certificate Generation
+{{ le.generate_certs(server_name, require=[('file', '.le_config')]) }}
+
+# ELB
+{{ le.elb_cert(server_name, key, keyid, watch=[('cmd', '.le_generate_certs')]) }}

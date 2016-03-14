@@ -33,24 +33,15 @@
       - pkg: .python
       - cmd: .setuptools
 
-# Install ipython globally
-.ipython:
+# Helpers
+.helpers:
   pip.installed:
-    - name: ipython
-    - require:
-      - cmd: .pip
-
-# Instal pdbpp globally
-.pdbpp:
-  pip.installed:
-    - name: pdbpp
-    - require:
-      - cmd: .pip
-
-# Install Virtualenv
-.virtualenv:
-  pip.installed:
-    - name: virtualenv
+    - pkgs:
+      - ipython
+      - pdb
+      - virtualenv
+      - timelib
+    - reload_modules: True
     - require:
       - cmd: .pip
 
@@ -60,4 +51,4 @@
     - name: {{ python_venv_root }}
     - makedirs: True
     - require:
-      - pip: .virtualenv
+      - pip: .helpers

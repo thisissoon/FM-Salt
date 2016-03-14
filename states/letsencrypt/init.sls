@@ -6,6 +6,8 @@
 
 {% set python_venv_root = salt['pillar.get']('python:virtualenv:root', '/.virtualenvs') %}
 {% set venv = python_venv_root + '/' + salt['pillar.get']('letsencrypt:venv:name', 'letsencrypt') %}
+{% set le_root = salt['pillar.get']('letsencrypt:root', '/etc/letsencrypt') %}
+{% set config_root = salt['pillar.get']('letsencrypt:config:root', le_root + '/conf.d') %}
 
 include:
   - python
@@ -40,7 +42,7 @@ include:
 # Config Dir
 .configdir:
   file.directory:
-    - name: /etc/letsencrypt/conf.d
+    - name: {{ config_root }}
     - makedirs: true
 
 # WebRoot Path
