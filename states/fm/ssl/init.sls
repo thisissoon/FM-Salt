@@ -10,7 +10,10 @@
 #
 
 {% set canonical = 'thisissoon.fm' %}
+{#
 {% set domains = [canonical, 'api.' + canonical, 'sockets.' + canonical] %}
+#}
+{% set domains = [canonical, ] %}
 {% set conf_path = '/etc/letsencrypt/conf.d/' + canonical + '.conf' %}
 {% set current_path = salt['environ.get']('PATH', '/bin:/usr/bin') %}
 {% set cert_root = '/etc/letsencrypt/live' %}
