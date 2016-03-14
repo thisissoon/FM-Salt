@@ -4,6 +4,8 @@
 # Ensure python and python-dev are installed
 #
 
+{% set python_venv_root = salt['pillar.get']('python:virtualenv:root', '/.virtualenvs') %}
+
 # Install python and python-dev (curl also required)
 .python:
   pkg.installed:
@@ -55,7 +57,7 @@
 # Virtualenvs Dir
 .venvdir:
   file.directory:
-    - name: /.virtualenvs
+    - name: {{ python_venv_root }}
     - makedirs: True
     - require:
       - pip: .virtualenv
