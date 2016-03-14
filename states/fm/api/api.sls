@@ -13,6 +13,7 @@ include:
   - docker
   - nginx
   - redis
+  - letsencrypt
 
 # Download latest image
 .image:
@@ -77,5 +78,6 @@ include:
       server_name: {{ server_name }}
     - require:
       - dockerng: .container
+      - stateconf: letsencrypt::goal
     - watch_in:
       - service: nginx::nginx
