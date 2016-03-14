@@ -7,6 +7,7 @@
 
 include:
   - letsencrypt
+  - python
 
 {% set le_root = salt['pillar.get']('letsencrypt:root', '/etc/letsencrypt') %}
 {% set config_root = salt['pillar.get']('letsencrypt:config:root', le_root + '/conf.d') %}
@@ -86,4 +87,6 @@ include:
       - {{ func }}: {{ subject }}
       {% endfor %}
     {% endif %}
+    - require:
+      - stateconf: python::goal
 {% endmacro %}

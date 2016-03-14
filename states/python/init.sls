@@ -41,6 +41,7 @@
       - pdb
       - virtualenv
       - timelib
+      - boto
     - reload_modules: True
     - require:
       - cmd: .pip
