@@ -82,12 +82,9 @@ include:
     - region: {{ region }}
     - keyid: {{ keyid }}
     - key: {{ key }}
-    {% if watch|length > 0 %}
-    - watch:
+    - require:
+      - stateconf: python::goal
       {% for func, subject in watch %}
       - {{ func }}: {{ subject }}
       {% endfor %}
-    {% endif %}
-    - require:
-      - stateconf: python::goal
 {% endmacro %}
