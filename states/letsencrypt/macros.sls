@@ -27,8 +27,8 @@ include:
     - context:
       domain: {{ domain }}
       email: {{ email }}
-      key_size: {{ key_size }}
-      server: {{ server }}
+      key_size: {{ key_size|default(4096, true) }}
+      server: {{ server|default(4096, 'https://acme-v01.api.letsencrypt.org/directory') }}
 {% endmacro %}
 
 # A macro for generating LE SSL certs if we have not yet generated them, this will
