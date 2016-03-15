@@ -72,13 +72,15 @@ include:
 
 # Macro for uploading a server certificate to IAM
 {% macro elb_cert(domain, keyid, key, region='eu-west-1', name='.le_elb_certificate', watch=[]) %}
+
 {% set cert_path = le_root + '/live/' + domain %}
+
 {{ name }}:
   boto_iam.server_cert_present:
     - name: {{ domain }}.le.{{ "today"|strftime("%Y.%m.%d") }}
-    - public_key: {{ cert_path }}/cert.pem
-    - private_key: {{ cert_path }}/privkey.pem
-    - cert_chain: {{ cert_path }}/chain.pem
+    - public_key: {{ salt['cp.get_file_str'](cert_path + '/cert.pem') }}
+    - private_key: {{ salt['cp.get_file_str'](cert_path + '/privkey.pem') }}
+    - cert_chain: {{ salt['cp.get_file_str'](cert_path + '/chain.pem') }}
     - region: {{ region }}
     - keyid: {{ keyid }}
     - key: {{ key }}
