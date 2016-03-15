@@ -17,7 +17,7 @@ include:
 
 # Generates a state for standard LE config for a domain. Does not need LE to be installed
 # first. Use the name keyword argument to name the state, sefaults to stateconf .le_config
-{% macro config(domain, email, key_size=None, name=None, server=None) %}
+{% macro config(domain, email, key_size='', name='', server='') %}
 {{ name|default('.le_config') }}:
   file.managed:
     - name: {{ config_root }}/{{ domain }}.conf
@@ -42,7 +42,7 @@ include:
 # #}
 #
 # Use the name keyword argument to name the state, defaults too stateconf '.le_generate_certs'
-{% macro generate_certs(domain, require=[], watch=[], watch_in=[], name=None) -%}
+{% macro generate_certs(domain, require=[], watch=[], watch_in=[], name='') -%}
 {% set cert_path = le_root + '/live/' + domain %}
 {{ name|default('.le_generate_certs') }}:
   cmd.run:
