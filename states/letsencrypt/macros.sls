@@ -13,6 +13,7 @@ include:
 {% set config_root = salt['pillar.get']('letsencrypt:config:root', le_root + '/conf.d') %}
 {% set python_venv_root = salt['pillar.get']('python:virtualenv:root', '/.virtualenvs') %}
 {% set venv = python_venv_root + '/' + salt['pillar.get']('letsencrypt:venv:name', 'letsencrypt') %}
+{% set current_path = salt['environ.get']('PATH', '/bin:/usr/bin') %}
 
 # Generates a state for standard LE config for a domain. Does not need LE to be installed
 # first. Use the name keyword argument to name the state, sefaults to stateconf .le_config
@@ -42,8 +43,7 @@ include:
 #
 # Use the name keyword argument to name the state, defaults too stateconf '.le_generate_certs'
 {% macro generate_certs(domain, require=[], watch=[], watch_in=[], name=None) -%}
-{% set current_path = salt['environ.get']('PATH', '/bin:/usr/bin') %}
-{% set cert_path = le_root + '/live/' + server_name %}
+{% set cert_path = le_root + '/live/' + domain %}
 {{ name|default('.le_generate_certs') }}:
   cmd.run:
     - name: letsencrypt --agree-tos --config {{ config_root }}/{{ domain }}.conf certonly
