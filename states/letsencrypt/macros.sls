@@ -75,7 +75,7 @@ include:
 {% set cert_path = le_root + '/live/' + domain %}
 {{ name }}:
   boto_iam.server_cert_present:
-    - name: {{ server_name }}.le.{{ "today"|strftime("%Y.%m.%d") }}
+    - name: {{ domain }}.le.{{ "today"|strftime("%Y.%m.%d") }}
     - public_key: {{ cert_path }}/cert.pem
     - private_key: {{ cert_path }}/privkey.pem
     - cert_chain: {{ cert_path }}/chain.pem
