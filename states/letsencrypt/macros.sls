@@ -16,17 +16,18 @@ include:
 
 # Generates a state for standard LE config for a domain. Does not need LE to be installed
 # first. Use the name keyword argument to name the state, sefaults to stateconf .le_config
-{% macro config(server_name, email, key_size=4096, name='.le_config') %}
-{{ name }}:
+{% macro config(domain, email, key_size=None, name=None, server=None) %}
+{{ name|default('.le_config') }}:
   file.managed:
-    - name: {{ config_root }}/{{ server_name }}.conf
+    - name: {{ config_root }}/{{ domain }}.conf
     - source: salt://letsencrypt/files/domain.config.conf
     - template: jinja
     - makedirs: True
     - context:
-      server_name: {{ server_name }}
+      domain: {{ domain }}
       email: {{ email }}
       key_size: {{ key_size }}
+      server: {{ server }}
 {% endmacro %}
 
 # A macro for generating LE SSL certs if we have not yet generated them, this will

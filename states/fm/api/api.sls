@@ -86,3 +86,6 @@ include:
       - stateconf: letsencrypt::goal
     - watch_in:
       - service: nginx::nginx
+
+# Lets Encrypt Config File (.le_config)
+{{ le.config(server_name, 'dorks+fmapi@thisissoon.com') }}
