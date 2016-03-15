@@ -79,11 +79,11 @@ include:
   boto_iam.server_cert_present:
     - name: {{ domain }}.le.{{ "today"|strftime("%Y.%m.%d") }}
     - public_key: |
-      {{ salt['cp.get_file_str'](cert_path + '/cert.pem') | indent(8) }}
+        {{ salt['cp.get_file_str'](cert_path + '/cert.pem') | indent(8) }}
     - private_key: |
-      {{ salt['cp.get_file_str'](cert_path + '/privkey.pem') | indent(8) }}
+        {{ salt['cp.get_file_str'](cert_path + '/privkey.pem') | indent(8) }}
     - cert_chain: |
-      {{ salt['cp.get_file_str'](cert_path + '/chain.pem') | indent(8) }}
+        {{ salt['cp.get_file_str'](cert_path + '/chain.pem') | indent(8) }}
     - region: {{ region }}
     - keyid: {{ keyid }}
     - key: {{ key }}
