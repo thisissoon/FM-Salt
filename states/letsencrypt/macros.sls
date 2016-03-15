@@ -78,7 +78,7 @@ include:
     - name: {{ domain }}.le.{{ "today"|strftime("%Y.%m.%d") }}
     - public_key: {{ cert_path }}/cert.pem
     - private_key: {{ cert_path }}/privkey.pem
-    - cert_chain: {{ cert_path }}/fullchain.pem
+    - cert_chain: {{ cert_path }}/chain.pem
     - region: {{ region }}
     - keyid: {{ keyid }}
     - key: {{ key }}
