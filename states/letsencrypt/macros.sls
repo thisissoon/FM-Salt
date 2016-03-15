@@ -71,8 +71,8 @@ include:
 {% endmacro %}
 
 # Macro for uploading a server certificate to IAM
-{% macro elb_cert(server_name, keyid, key, region='eu-west-1', name='.le_elb_certificate', watch=[]) %}
-{% set cert_path = le_root + '/live/' + server_name %}
+{% macro elb_cert(domain, keyid, key, region='eu-west-1', name='.le_elb_certificate', watch=[]) %}
+{% set cert_path = le_root + '/live/' + domain %}
 {{ name }}:
   boto_iam.server_cert_present:
     - name: {{ server_name }}.le.{{ "today"|strftime("%Y.%m.%d") }}
