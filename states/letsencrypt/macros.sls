@@ -46,7 +46,7 @@ include:
 {% set cert_path = le_root + '/live/' + domain %}
 {{ name|default('.le_generate_certs', true) }}:
   cmd.run:
-    - name: letsencrypt --agree-tos --config {{ config_root }}/{{ domain }}.conf certonly
+    - name: letsencrypt certonly --agree-tos --config {{ config_root }}/{{ domain }}.conf
     - env:
       - PATH: {{ [current_path, venv + '/bin']|join(':') }}
     - unless: test -d {{ cert_path }}
