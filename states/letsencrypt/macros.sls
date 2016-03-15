@@ -41,12 +41,12 @@ include:
 # #}
 #
 # Use the name keyword argument to name the state, defaults too stateconf '.le_generate_certs'
-{% macro generate_certs(server_name, require=[], watch=[], watch_in=[], name='.le_generate_certs') -%}
+{% macro generate_certs(domain, require=[], watch=[], watch_in=[], name=None) -%}
 {% set current_path = salt['environ.get']('PATH', '/bin:/usr/bin') %}
 {% set cert_path = le_root + '/live/' + server_name %}
-{{ name }}:
+{{ name|default('.le_generate_certs') }}:
   cmd.run:
-    - name: letsencrypt --agree-tos --config {{ config_root }}/{{ server_name }}.conf certonly
+    - name: letsencrypt --agree-tos --config {{ config_root }}/{{ domain }}.conf certonly
     - env:
       - PATH: {{ [current_path, venv + '/bin']|join(':') }}
     - unless: test -d {{ cert_path }}
