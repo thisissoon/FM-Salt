@@ -98,4 +98,4 @@ include:
 {{ le.generate_certs(server_name, require=[('file', '.nginx'), ('file', '.le_config')]) }}
 
 # Upload Certificate to IAM
-{{ le.elb_cert(domain, keyid, key, watch=[('cmd', '.le_generate_certs'), ]) }}
+{{ le.elb_cert(server_name, keyid, key, watch=[('cmd', '.le_generate_certs'), ]) }}
