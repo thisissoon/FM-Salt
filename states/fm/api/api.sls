@@ -87,5 +87,5 @@ include:
     - watch_in:
       - service: nginx::nginx
 
-# Lets Encrypt Config File (.le_config)
-{{ le.config(server_name, 'dorks+fmapi@thisissoon.com') }}
+# Lets Encrypt Config File (.le_config) (use the staging server for now)
+{{ le.config(server_name, 'dorks+fmapi@thisissoon.com', server='https://acme-staging.api.letsencrypt.org/directory') }}
