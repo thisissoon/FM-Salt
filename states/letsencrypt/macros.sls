@@ -17,8 +17,8 @@ include:
 
 # Generates a state for standard LE config for a domain. Does not need LE to be installed
 # first. Use the name keyword argument to name the state, sefaults to stateconf .le_config
-{% macro config(domain, email, key_size="", name="", server="") %}
-{{ name|default('.le_config') }}:
+{% macro config(domain, email, key_size=None, name=None, server=None) %}
+{{ name|default('.le_config', true) }}:
   file.managed:
     - name: {{ config_root }}/{{ domain }}.conf
     - source: salt://letsencrypt/files/domain.config.conf
@@ -42,9 +42,9 @@ include:
 # #}
 #
 # Use the name keyword argument to name the state, defaults too stateconf '.le_generate_certs'
-{% macro generate_certs(domain, require=[], watch=[], watch_in=[], name="") -%}
+{% macro generate_certs(domain, require=[], watch=[], watch_in=[], name=None) -%}
 {% set cert_path = le_root + '/live/' + domain %}
-{{ name|default('.le_generate_certs') }}:
+{{ name|default('.le_generate_certs', true) }}:
   cmd.run:
     - name: letsencrypt --agree-tos --config {{ config_root }}/{{ domain }}.conf certonly
     - env:
