@@ -95,4 +95,4 @@ include:
 {{ le.config(server_name, 'dorks+fmapi@thisissoon.com', server='https://acme-staging.api.letsencrypt.org/directory') }}
 
 # Generate Certificates
-{{ le.generate_certs(server_name, require=[('file', '.nginx'), ('file', '.le_config'))])
+{{ le.generate_certs(server_name, require=[('file', '.nginx'), ('file', '.le_config')]) }}
