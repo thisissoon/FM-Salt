@@ -32,13 +32,6 @@
     - group: nginx
     - require:
       - pkg: .nginx
-  # Manage Snippets Directory
-  file.recurse:
-    - name: /etc/nginx/snippets
-    - source: salt://nginx/files/snippets
-    - template: jinja
-    - require:
-      - pkg: .nginx
   # Run the Nginx Service
   service.running:
     - name: nginx
@@ -50,3 +43,13 @@
     - watch:
       - file: .nginx
       - pkg: .nginx
+
+# Manage Snippets Directory
+.snippets:
+  file.recurse:
+    - name: /etc/nginx/snippets
+    - source: salt://nginx/files/snippets
+    - template: jinja
+    - require:
+      - pkg: .nginx
+
