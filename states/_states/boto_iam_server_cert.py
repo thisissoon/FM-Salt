@@ -78,13 +78,12 @@ def present(
     for key in pems.keys():
         path = pems[key]['path']
         try:
-            body = __salt__['cp.get_file_str'](path)
+            pem[key]['body'] = __salt__['cp.get_file_str'](path)
         except IOError as e:
             log.debug(e)
             ret['comment'] = 'File {0} not found.'.format(path)
             ret['result'] = False
             return ret
-        pem[key]['body'] = body
 
     if __opts__['test']:
         ret['comment'] = 'Server certificate {0} is set to be created.'.format(name)
