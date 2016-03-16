@@ -52,4 +52,5 @@
     - template: jinja
     - require:
       - pkg: .nginx
-
+    - watch_in:
+      - service: .nginx
