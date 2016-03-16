@@ -7,8 +7,9 @@
 {% set python_venv_root = salt['pillar.get']('python:virtualenv:root', '/.virtualenvs') %}
 {% set venv = python_venv_root + '/letsencrypt' %}
 {% set root = '/etc/letsencrypt' %}
-{% set config_dir = '/conf.d' %}
+{% set config_dir = root + '/conf.d' %}
 {% set server_name = salt['pillar.get']('letsencrypt:server_name', 'letsencrypt.internal') %}
+{% ser webroot_path = '/var/www/letsencrypt' %}
 
 include:
   - python
@@ -44,13 +45,13 @@ include:
 # Config Dir
 .configdir:
   file.directory:
-    - name: {{ config_path }}
+    - name: {{ config_dir }}
     - makedirs: true
 
 # WebRoot Path
 .webroot:
   file.directory:
-    - name: /var/www/letsencrypt
+    - name: {{ webroot_path }}
     - makedirs: true
 
 # Nginx Configuration
@@ -61,6 +62,8 @@ include:
     - name: /etc/nginx/letsencrypt.conf
     - source: salt://letsencrypt/files/nginx.conf
     - template: jinja
+    - context:
+      webroot_path: {{ webroot_path }}
     - require:
       - stateconf: nginx::goal
       - pip: .letsencrypt
