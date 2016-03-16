@@ -58,7 +58,7 @@ include:
 # managed for
 .nginx:
   file.managed:
-    - name: /etc/nginx/letsencrypt.conf
+    - name: /etc/nginx/conf.d/letsencrypt.conf
     - source: salt://letsencrypt/files/nginx.conf
     - template: jinja
     - context:
