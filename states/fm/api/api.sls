@@ -16,7 +16,6 @@ include:
   - docker
   - nginx
   - redis
-  - letsencrypt
 
 # Download latest image
 .image:
