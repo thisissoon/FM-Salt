@@ -50,7 +50,5 @@
     - name: /etc/nginx/snippets
     - source: salt://nginx/files/snippets
     - template: jinja
-    - require:
-      - pkg: .nginx
     - watch_in:
       - service: .nginx

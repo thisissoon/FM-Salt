@@ -34,13 +34,12 @@ include:
   virtualenv.managed:
     - name: {{ venv }}
     - require:
-      - stateconf: python::goal
+      - pkg: .dependencies
   pip.installed:
     - name: letsencrypt == 0.4.2
     - bin_env: {{ venv }}
     - require:
       - virtualenv: .letsencrypt
-      - pkg: .dependencies
 
 # Config Dir
 .configdir:
@@ -65,7 +64,6 @@ include:
     - context:
       webroot_path: {{ webroot_path }}
     - require:
-      - stateconf: nginx::goal
       - pip: .letsencrypt
     - watch_in:
       - service: nginx::nginx
