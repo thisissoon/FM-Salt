@@ -95,13 +95,11 @@ include:
     - require:
       - file: .configdir
 
-# If we don't have any SSL certs yet we need to generate them first and then upload them
-# to AWS IAM
-{% if not salt['file.directory_exists'](config_dir + '/' + domain) %}
 # Create certificates with lets encrypt
 .{{ domain }}_create_certificates:
   cmd.run:
     - name: letsencrypt certonly --agree-tos --config {{ conf_path }}
+    - unless: test -d {{ cert_path }}
     - env:
       - PATH: {{ [salt['environ.get']('PATH', '/bin:/usr/bin'), venv + '/bin']|join(':') }}
     - require:
@@ -121,5 +119,4 @@ include:
     - require:
       - cmd: .{{ domain }}_create_certificates
       - stateconf: python::goal
-{% endif %}
 {% endfor %}
