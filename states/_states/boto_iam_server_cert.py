@@ -76,12 +76,12 @@ def present(
         }
     }
     for key in pems.keys():
-        path = pems[key]['path']
+        loc = pems[key]['path']
         try:
-            pems[key]['body'] = __salt__['cp.get_file_str'](path)
+            pems[key]['body'] = __salt__['cp.get_file_str'](loc)
         except IOError as e:
             log.debug(e)
-            ret['comment'] = 'File {0} not found.'.format(path)
+            ret['comment'] = 'File {0} not found.'.format(loc)
             ret['result'] = False
             return ret
 
