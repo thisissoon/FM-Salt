@@ -106,6 +106,7 @@ include:
       - PATH: {{ [salt['environ.get']('PATH', '/bin:/usr/bin'), venv + '/bin']|join(':') }}
     - require:
       - pip: .letsencrypt
+      - file: .{{ domain }}_le_config
 
 # Upload the certificates to AWS IAM
 {{ domain }}_upload_to_iam:
