@@ -52,3 +52,8 @@ base:
   'roles:soon.fm.perceptor':
     - match: grain
     - fm.perceptor
+
+  # Lets Encry[t
+  'roles:soon.fm.letsencrypt':
+    - match: grain
+    - letsencrypt
