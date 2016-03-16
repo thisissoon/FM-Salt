@@ -5,12 +5,14 @@
 #
 
 {% set python_venv_root = salt['pillar.get']('python:virtualenv:root', '/.virtualenvs') %}
-{% set venv = python_venv_root + '/' + salt['pillar.get']('letsencrypt:venv:name', 'letsencrypt') %}
-{% set le_root = salt['pillar.get']('letsencrypt:root', '/etc/letsencrypt') %}
-{% set config_root = salt['pillar.get']('letsencrypt:config:root', le_root + '/conf.d') %}
+{% set venv = python_venv_root + '/letsencrypt' %}
+{% set root = '/etc/letsencrypt' %}
+{% set config_dir = '/conf.d' %}
+{% set server_name = salt['pillar.get']('letsencrypt:server_name', 'letsencrypt.internal') %}
 
 include:
   - python
+  - nginx
 
 # Dependency Packages
 .dependencies:
@@ -42,7 +44,7 @@ include:
 # Config Dir
 .configdir:
   file.directory:
-    - name: {{ config_root }}
+    - name: {{ config_path }}
     - makedirs: true
 
 # WebRoot Path
@@ -50,3 +52,17 @@ include:
   file.directory:
     - name: /var/www/letsencrypt
     - makedirs: true
+
+# Nginx Configuration
+# Adds Nginx Server configurations for each domain we want SSL certificates
+# managed for
+.nginx:
+  file.managed:
+    - name: /etc/nginx/letsencrypt.conf
+    - source: salt://letsencrypt/files/nginx.conf
+    - template: jinja
+    - require:
+      - stateconf: nginx::goal
+      - pip: .letsencrypt
+    - watch_in:
+      - service: nginx::nginx
