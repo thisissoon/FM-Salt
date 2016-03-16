@@ -109,14 +109,11 @@ include:
 
 # Upload the certificates to AWS IAM
 {{ domain }}_upload_to_iam:
-  boto_iam.server_cert_present:
+  boto_server_cert.present:
     - name: {{ domain }}.letsencrypt
-    - public_key: |
-        {{ salt['cp.get_file_str'](cert_path + '/cert.pem') | indent(8) }}
-    - private_key: |
-        {{ salt['cp.get_file_str'](cert_path + '/privkey.pem') | indent(8) }}
-    - cert_chain: |
-        {{ salt['cp.get_file_str'](cert_path + '/chain.pem') | indent(8) }}
+    - public_key: {{ cert_path + '/cert.pem' }}
+    - private_key: {{ cert_path + '/privkey.pem' }}
+    - cert_chain: {{ cert_path + '/chain.pem' }}
     - region: {{ aws_region }}
     - keyid: {{ aws_keyid }}
     - key: {{ aws_key }}
