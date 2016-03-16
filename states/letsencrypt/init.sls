@@ -109,7 +109,7 @@ include:
 
 # Upload the certificates to AWS IAM
 {{ domain }}_upload_to_iam:
-  boto_server_cert.present:
+  boto_server_certificate.present:
     - name: {{ domain }}.letsencrypt
     - public_key: {{ cert_path + '/cert.pem' }}
     - private_key: {{ cert_path + '/privkey.pem' }}
