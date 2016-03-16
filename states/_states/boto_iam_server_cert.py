@@ -71,7 +71,7 @@ def present(
             'body': ''
         },
         'cert_chain': {
-            'path': private_key,
+            'path': cert_chain,
             'body': ''
         }
     }
