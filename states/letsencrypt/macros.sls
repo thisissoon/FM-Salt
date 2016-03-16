@@ -71,13 +71,18 @@ include:
 {% endmacro %}
 
 # Macro for uploading a server certificate to IAM
-{% macro elb_cert(domain, keyid, key, region='eu-west-1', name='.le_elb_certificate', watch=[]) %}
+{% macro iam_certificate(domain, keyid, key, force=False, region='eu-west-1', name='.le_iam_certificate', watch=[]) %}
 
 {% set cert_path = le_root + '/live/' + domain %}
+{% set cert_name =  domain + '.le.' + "today"|strftime("%Y.%m.%d")  %}
 
+# Only upload cert to IAM if we havn't already or force is True
+{% if not salt['pillar.get']('letsencrypt:domain:current', false) %}
+
+# Upload to IAM
 {{ name }}:
   boto_iam.server_cert_present:
-    - name: {{ domain }}.le.{{ "today"|strftime("%Y.%m.%d") }}
+    - name: {{ cert_name }}
     - public_key: |
         {{ salt['cp.get_file_str'](cert_path + '/cert.pem') | indent(8) }}
     - private_key: |
@@ -89,7 +94,9 @@ include:
     - key: {{ key }}
     - require:
       - stateconf: python::goal
-      {% for func, subject in watch %}
-      - {{ func }}: {{ subject }}
-      {% endfor %}
+
+{% endif %}
+
+
+{% endif %}
 {% endmacro %}

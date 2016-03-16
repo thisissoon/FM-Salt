@@ -50,11 +50,3 @@ include:
   file.directory:
     - name: /var/www/letsencrypt
     - makedirs: true
-
-# Nginx Include Snippet
-.nginx:
-  file.managed:
-    - name: /etc/letsencrypt/nginx.include.conf
-    - source: salt://letsencrypt/files/nginx.include.conf
-    - makedirs: true
-    - template: jinja

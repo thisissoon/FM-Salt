@@ -4,8 +4,6 @@
 # Run the API Container
 #
 
-{% import 'letsencrypt/macros.sls' as le with context %}
-
 {% set image = 'quay.io/thisissoon/fm-api' %}
 {% set tag = 'prod' %}
 {% set port = 34000 %}
@@ -83,19 +81,5 @@ include:
       server_name: {{ server_name }}
     - require:
       - dockerng: .container
-      - stateconf: letsencrypt::goal
     - watch_in:
       - service: nginx::nginx
-
-#
-# Lets Encrypt Certificate Management
-#
-
-# Lets Encrypt Config File (.le_config) (use the staging server for now)
-{{ le.config(server_name, 'dorks+fmapi@thisissoon.com', server='https://acme-staging.api.letsencrypt.org/directory') }}
-
-# Generate Certificates
-{{ le.generate_certs(server_name, require=[('file', '.nginx'), ('file', '.le_config')]) }}
-
-# Upload Certificate to IAM
-{{ le.elb_cert(server_name, keyid, key, watch=[('cmd', '.le_generate_certs'), ]) }}
