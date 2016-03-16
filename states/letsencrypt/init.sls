@@ -9,7 +9,7 @@
 {% set root = '/etc/letsencrypt' %}
 {% set config_dir = root + '/conf.d' %}
 {% set server_name = salt['pillar.get']('letsencrypt:server_name', 'letsencrypt.internal') %}
-{% ser webroot_path = '/var/www/letsencrypt' %}
+{% set webroot_path = '/var/www/letsencrypt' %}
 
 include:
   - python
