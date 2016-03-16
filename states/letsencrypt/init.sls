@@ -118,7 +118,7 @@ include:
     - keyid: {{ aws_keyid }}
     - key: {{ aws_key }}
     - require:
-      - cmd: .{{ domain }}_create_certificates:
+      - cmd: .{{ domain }}_create_certificates
       - stateconf: python::goal
 {% endif %}
 {% endfor %}
