@@ -125,7 +125,7 @@ include:
       - cmd: .{{ domain }}_create_certificates
 
 # Ensure the certificates exist in AWS IAM
-{{ domain|replace('.', '_') }}_iam_certificate:
+.{{ domain }}_iam_certificate:
   boto_server_certificate.present:
     - name: {{ cert_name }}
     - public_key: {{ cert_path + '/cert.pem' }}
@@ -139,7 +139,7 @@ include:
       - stateconf: python::goal
 
 # Ensure the ELB for this domain
-.{{ domain|replace('.', '_') }}_elb_listener:
+.{{ domain }}_elb_listener:
   boto_elb_listener.managed:
     - elb: {{ elb_name }}
     - elb_port: 443
@@ -148,5 +148,5 @@ include:
     - instance_proto: TCP
     - certificate_arn: arn:aws:iam::{{ aws_account_id }}:server-certificate/{{ cert_name }}
     - require:
-      - boto_server_certificate: .{{ domain|replace('.', '_') }}_iam_certificate
+      - boto_server_certificate: .{{ domain }}_iam_certificate
 {% endfor %}
