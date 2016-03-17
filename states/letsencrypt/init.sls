@@ -81,7 +81,7 @@ include:
 # Constants
 {% set conf_path = config_dir + '/' + domain + '.conf' %}
 {% set cert_path = root + '/live/' + domain %}
-{% set cert_name = salt['pillar.get']('letsencrypt:domains:' + domain + ':cert_name', '') %}
+{% set cert_name = salt['pillar.get']('letsencrypt:domains:' + domain + ':cert_name', None) %}
 # Ensure we have a config for the domain
 .{{ domain }}_le_config:
   file.managed:
