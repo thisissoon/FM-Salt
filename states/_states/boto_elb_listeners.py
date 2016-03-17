@@ -92,7 +92,7 @@ def managed(
         rtn['changes']['removed'] = 'Removed {0} > {1}'.format(elb_port, instance_port)
 
     # Create the listener
-    listener = [elb_proto, instance_proto, elb_port, instance_port]
+    listener = [elb_port, instance_port, elb_proto, instance_proto]
     if certificate_arn:
         listener.append(certificate_arn)
     created = __salt__['boto_elb.create_listeners'](
