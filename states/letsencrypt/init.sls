@@ -78,8 +78,10 @@ include:
 # - Update the ELB to use that cert
 # - Setup Renew cron, see renew.sls
 {% for domain, meta in salt['pillar.get']('letsencrypt:domains', {}).iteritems() %}
+# Constants
 {% set conf_path = config_dir + '/' + domain + '.conf' %}
 {% set cert_path = root + '/live/' + domain %}
+{% set cert_name = salt['pillar.get']('letsencrypt:domains:' + domain + ':cert_name', '') %}
 # Ensure we have a config for the domain
 .{{ domain }}_le_config:
   file.managed:
@@ -95,21 +97,34 @@ include:
     - require:
       - file: .configdir
 
+# If the certificates do not exist we need to create them
+{% if not salt['file.directory_exists'](cert_path) %}
+# set the cert name to be the domain and a timestamp
+{% set cert_name = domain + '.letsencrypt.' + "today"|strftime("%Y.%m.%d") %}
 # Create certificates with lets encrypt
 .{{ domain }}_create_certificates:
   cmd.run:
     - name: letsencrypt certonly --agree-tos --config {{ conf_path }}
-    - unless: test -d {{ cert_path }}
+    # - unless: test -d {{ cert_path }}
     - env:
       - PATH: {{ [salt['environ.get']('PATH', '/bin:/usr/bin'), venv + '/bin']|join(':') }}
     - require:
       - pip: .letsencrypt
       - file: .{{ domain }}_le_config
+# Set the pillar cert name to be the one we just made
+.{{ domain }}_set_pillar:
+  etcd.wait_set:
+    - name: /salt/pillar/shared/letsencrypt/domains/{{ domain }}/cert_name
+    - value: {{ cert_name }}
+    - profile: salt_master
+    - watch:
+      - cmd: .{{ domain }}_create_certificates
+{% endif %}
 
-# Upload the certificates to AWS IAM
+# Ensure the certificates exist in AWS IAM
 {{ domain }}_upload_to_iam:
   boto_server_certificate.present:
-    - name: {{ domain }}.letsencrypt
+    - name: {{ cert_name }}
     - public_key: {{ cert_path + '/cert.pem' }}
     - private_key: {{ cert_path + '/privkey.pem' }}
     - cert_chain: {{ cert_path + '/chain.pem' }}
