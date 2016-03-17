@@ -97,21 +97,23 @@ include:
     - require:
       - file: .configdir
 
-# If the certificates do not exist we need to create them
+# If the certificates do not exist we need to create them, override the cert name
 {% if not salt['file.directory_exists'](cert_path) %}
-# set the cert name to be the domain and a timestamp
 {% set cert_name = domain + '.letsencrypt.' + "today"|strftime("%Y.%m.%d") %}
-# Create certificates with lets encrypt
+{% endif %}
+
+# Create certificates with lets encrypt if they do not exist
 .{{ domain }}_create_certificates:
   cmd.run:
     - name: letsencrypt certonly --agree-tos --config {{ conf_path }}
-    # - unless: test -d {{ cert_path }}
+    - unless: test -d {{ cert_path }}
     - env:
       - PATH: {{ [salt['environ.get']('PATH', '/bin:/usr/bin'), venv + '/bin']|join(':') }}
     - require:
       - pip: .letsencrypt
       - file: .{{ domain }}_le_config
-# Set the pillar cert name to be the one we just made
+
+# Set the pillar cert name to be the one we just made, if we made one
 .{{ domain }}_set_pillar:
   etcd.wait_set:
     - name: /salt/pillar/shared/letsencrypt/domains/{{ domain }}/cert_name
@@ -119,7 +121,6 @@ include:
     - profile: salt_master
     - watch:
       - cmd: .{{ domain }}_create_certificates
-{% endif %}
 
 # Ensure the certificates exist in AWS IAM
 {{ domain }}_upload_to_iam:
