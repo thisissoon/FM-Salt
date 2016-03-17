@@ -118,7 +118,7 @@ include:
   etcd.wait_set:
     - name: /salt/pillar/shared/letsencrypt/domains/{{ domain }}/cert_name
     - value: {{ cert_name }}
-    - profile: salt_master
+    - profile: master_etcd
     - watch:
       - cmd: .{{ domain }}_create_certificates
 
