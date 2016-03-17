@@ -105,7 +105,7 @@ include:
 {% endif %}
 
 # Create certificates with lets encrypt if they do not exist
-.{{ domain|replace('.', '_') }}_create_certificates:
+.{{ domain }}_create_certificates:
   cmd.run:
     - name: letsencrypt certonly --agree-tos --config {{ conf_path }}
     - unless: test -d {{ cert_path }}
@@ -113,19 +113,19 @@ include:
       - PATH: {{ [salt['environ.get']('PATH', '/bin:/usr/bin'), venv + '/bin']|join(':') }}
     - require:
       - pip: .letsencrypt
-      - file: .{{ domain|replace('.', '_') }}_le_config
+      - file: .{{ domain }}_le_config
 
 # Set the pillar cert name to be the one we just made, if we made one
-.{{ domain|replace('.', '_') }}_set_pillar:
+.{{ domain }}_set_pillar:
   etcd.wait_set:
     - name: /salt/pillar/shared/letsencrypt/domains/{{ domain }}/cert_name
     - value: {{ cert_name }}
     - profile: master_etcd
     - watch:
-      - cmd: .{{ domain|replace('.', '_') }}_create_certificates
+      - cmd: .{{ domain }}_create_certificates
 
 # Ensure the certificates exist in AWS IAM
-{{ domain|replace('.', '_') }}_iam_certificate:
+{{ domain }}_iam_certificate:
   boto_server_certificate.present:
     - name: {{ cert_name }}
     - public_key: {{ cert_path + '/cert.pem' }}
@@ -135,11 +135,11 @@ include:
     - keyid: {{ aws_keyid }}
     - key: {{ aws_key }}
     - require:
-      - cmd: .{{ domain|replace('.', '_') }}_create_certificates
+      - cmd: .{{ domain }}_create_certificates
       - stateconf: python::goal
 
 # Ensure the ELB for this domain
-.{{ domain|replace('.', '_') }}_elb_listener:
+.{{ domain }}_elb_listener:
   boto_elb_listener.managed:
     - elb: {{ elb_name }}
     - elb_port: 443
@@ -148,5 +148,5 @@ include:
     - instance_proto: TCP
     - certificate_arn: arn:aws:iam::{{ aws_account_id }}:server-certificate/{{ cert_name }}
     - require:
-      - boto_server_certificate: .{{ domain|replace('.', '_') }}_iam_certificate
+      - boto_server_certificate: .{{ domain }}_iam_certificate
 {% endfor %}
