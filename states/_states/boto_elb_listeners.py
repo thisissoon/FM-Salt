@@ -97,7 +97,7 @@ def managed(
         listener.append(certificate_arn)
     created = __salt__['boto_elb.create_listeners'](
         elb,
-        [listener]
+        [listener],
         region=region,
         key=key,
         keyid=keyid,
