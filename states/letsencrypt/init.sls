@@ -11,6 +11,7 @@
 {% set server_name = salt['pillar.get']('letsencrypt:server_name', 'letsencrypt.internal') %}
 {% set webroot_path = '/var/www/letsencrypt' %}
 {% set acme_server = salt['pillar.get']('letsencrypt:acme_server', 'https://acme-v01.api.letsencrypt.org/directory') %}
+{% set aws_account_id = salt['pillar.get']('aws:id', 'n/a') %}
 {% set aws_key = salt['pillar.get']('aws:iam:thisissoon.fm:key', 'n/a') %}
 {% set aws_keyid = salt['pillar.get']('aws:iam:thisissoon.fm:keyid', 'n/a') %}
 {% set aws_region = salt['pillar.get']('aws:iam:thisissoon.fm:region', 'eu-west-1') %}
@@ -82,6 +83,7 @@ include:
 {% set conf_path = config_dir + '/' + domain + '.conf' %}
 {% set cert_path = root + '/live/' + domain %}
 {% set cert_name = salt['pillar.get']('letsencrypt:domains:' + domain + ':cert_name', None) %}
+{% set elb_name = salt['pillar.get']('letsencrypt:domains:' + domain + ':elb', None) %}
 # Ensure we have a config for the domain
 .{{ domain }}_le_config:
   file.managed:
@@ -123,7 +125,7 @@ include:
       - cmd: .{{ domain }}_create_certificates
 
 # Ensure the certificates exist in AWS IAM
-{{ domain }}_upload_to_iam:
+{{ domain }}_iam_certificate:
   boto_server_certificate.present:
     - name: {{ cert_name }}
     - public_key: {{ cert_path + '/cert.pem' }}
@@ -135,4 +137,14 @@ include:
     - require:
       - cmd: .{{ domain }}_create_certificates
       - stateconf: python::goal
+
+# Ensure the ELB for this domain
+.{{ domain }}_elb_listener:
+  boto_elb_listener.managed:
+    - elb: {{ elb_name }}
+    - elb_port: 443
+    - elb_proto: SSL
+    - instance_port: 80
+    - instance_proto: TCP
+    - certificate_arn: arn:aws:iam::{{ aws_account_id }}:server-certificate/{{ cert_name }}
 {% endfor %}
