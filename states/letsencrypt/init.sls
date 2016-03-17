@@ -147,6 +147,9 @@ include:
     - instance_port: 80
     - instance_proto: TCP
     - certificate_arn: arn:aws:iam::{{ aws_account_id }}:server-certificate/{{ cert_name }}
+    - region: {{ aws_region }}
+    - keyid: {{ aws_keyid }}
+    - key: {{ aws_key }}
     - require:
       - boto_server_certificate: .{{ domain }}_iam_certificate
 {% endfor %}
