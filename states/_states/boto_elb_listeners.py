@@ -18,7 +18,7 @@ def __virtual__():
     '''
     Only load if boto is available.
     '''
-    return 'boto_elb' if 'boto_elb.exists' in __salt__ else False
+    return __virtualname__ if 'boto_elb.exists' in __salt__ else False
 
 
 def managed(
