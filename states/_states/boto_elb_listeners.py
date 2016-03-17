@@ -32,7 +32,7 @@ def managed(
         region=None,
         key=None,
         keyid=None,
-        profile=None)
+        profile=None):
     '''
     Ensure a listener exists on an ELB, if one already exists and there are
     changes this will update the existing listener.
