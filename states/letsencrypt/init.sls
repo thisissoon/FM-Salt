@@ -148,5 +148,5 @@ include:
     - instance_proto: TCP
     - certificate_arn: arn:aws:iam::{{ aws_account_id }}:server-certificate/{{ cert_name }}
     - require:
-      - boto_server_certificate.present: .{{ domain|replace('.', '_') }}_iam_certificate
+      - boto_server_certificate: .{{ domain|replace('.', '_') }}_iam_certificate
 {% endfor %}
