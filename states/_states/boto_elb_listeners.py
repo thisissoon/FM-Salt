@@ -162,7 +162,7 @@ def managed(
             return rtn
 
         # Sleep here for a few seconds to ensure the certificate propagtes within AWS
-        time.sleep(3)
+        __salt__['test.sleep'](3)
         # Certificate exists, update the listener certificate
         result = __salt__['boto_elb_ssl_certificate.set'](
             elb,
@@ -202,7 +202,7 @@ def managed(
             return rtn
         listener.append(certificate_arn)
         # Sleep here for a few seconds to ensure the certificate propagtes within AWS
-        time.sleep(3)
+        __salt__['test.sleep'](3)
 
     created = __salt__['boto_elb.create_listeners'](
         elb,
