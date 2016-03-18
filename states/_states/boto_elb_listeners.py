@@ -8,6 +8,7 @@ import hashlib
 import re
 import time
 import salt.utils.dictupdate as dictupdate
+import salt.utils.boto
 from salt.exceptions import SaltInvocationError
 import salt.ext.six as six
 import logging
@@ -40,11 +41,13 @@ def _certificate_exists(
 
     for i in range(0, certificate_check_interval):
         log.info('Checking Certificate Exists: {0}'.format(name))
-        exists = __salt__['boto_iam.get_server_certificate'](name, region, key, keyid, profile)
-        if exists:
+        try:
+            exists = __salt__['boto_iam.get_server_certificate'](name, region, key, keyid, profile)
+        except boto.exception.BotoServerError as e:
+            log.debug('Cert Not Found: Sleeping for {0} seconds...'.format(certificate_check_interval))
+            time.sleep(certificate_check_interval)
+        else:
             return True
-        log.debug('Sleeping for {0} seconds...'.format(certificate_check_interval))
-        time.sleep(certificate_check_interval)
 
     return False
 
