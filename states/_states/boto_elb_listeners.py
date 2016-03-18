@@ -29,8 +29,8 @@ def __virtual__():
 
 def _certificate_exists(
         name,
-        certificate_check_limit,
-        certificate_check_interval,
+        certificate_check_limit=5,
+        certificate_check_interval=3,
         region=None,
         key=None,
         keyid=None,
@@ -39,13 +39,18 @@ def _certificate_exists(
     Check if a SSL certificate exists.
     '''
 
-    for i in range(0, certificate_check_interval):
+    log.info('Checking Certificate Exists: {0}'.format(name))
+    log.debug('Variables are : {0}.'.format(locals()))
+
+    for i in range(0, certificate_check_limit):
         log.info('Checking Certificate Exists: {0}'.format(name))
-        exists = False
-        try:
-            exists = __salt__['boto_iam.get_server_certificate'](name, region, key, keyid, profile)
-        except:
-            log.info('Unknown error: {0}')
+        exists = __salt__['boto_iam.get_server_certificate'](
+            name,
+            region=region,
+            key=key,
+            keyid=keyid,
+            profile=profile)
+        log.info('Exists: {0}'.format(exists))
 
         if exists:
             return True
