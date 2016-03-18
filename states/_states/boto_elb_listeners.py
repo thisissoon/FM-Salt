@@ -174,7 +174,7 @@ def managed(
 
     # Create the listener
     listener = [elb_port, instance_port, elb_proto, instance_proto]
-    if certificate_arn:
+    if certificate_arn is not None:
         # Ensure the certificate exists
         exists = _certificate_exists(
             certificate_name,
@@ -186,7 +186,7 @@ def managed(
             profile=profile)
         if not exists:
             rtn['result'] = False
-            rtn['comment'] = 'Certificate {0} dpes not exist'.format(certificate_name)
+            rtn['comment'] = 'Certificate {0} does not exist'.format(certificate_name)
             return rtn
         listener.append(certificate_arn)
     created = __salt__['boto_elb.create_listeners'](
