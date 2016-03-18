@@ -6,9 +6,14 @@ from __future__ import absolute_import
 # Import Salt Libs
 import hashlib
 import re
+import time
 import salt.utils.dictupdate as dictupdate
 from salt.exceptions import SaltInvocationError
 import salt.ext.six as six
+import logging
+
+
+log = logging.getLogger(__name__)
 
 
 __virtualname__ = 'boto_elb_listener'
@@ -21,6 +26,29 @@ def __virtual__():
     return __virtualname__ if 'boto_elb.exists' in __salt__ else False
 
 
+def _certificate_exists(
+        name,
+        certificate_check_limit,
+        certificate_check_interval,
+        region=None,
+        key=None,
+        keyid=None,
+        profile=None):
+    '''
+    Check if a SSL certificate exists.
+    '''
+
+    for i in range(0, certificate_check_interval):
+        log.info('Checking Certificate Exists: {0}'.format(name)
+        exists = __salt__['boto_iam.get_server_certificate'](name, region, key, keyid, profile)
+        if exists:
+            return True
+        log.debug('Sleeping for {0} seconds...'.format(certificate_check_interval)
+        time.sleep(certificate_check_interval)
+
+    return False
+
+
 def managed(
         name,
         elb,
@@ -28,7 +56,10 @@ def managed(
         elb_proto,
         instance_port,
         instance_proto,
-        certificate_arn=None,
+        account_id=None,  # Optionally required
+        certificate_name=None,
+        certificate_check_limit=5,  # max 5 checks
+        certificate_check_interval=3,  # 3 seconds
         region=None,
         key=None,
         keyid=None,
@@ -76,24 +107,85 @@ def managed(
             listener = l
             break
 
-    # Delete the listener
+    certificate_arn = None
+    if certificate_name is not None:
+        if account_id is None:
+            rtn['result'] = False
+            rtn['comment'] = 'You must provide an AWS account ID for managing ELB Listener SSL Certificates'
+            return rtn
+        certificate_arn = 'arn:aws:iam::{0}:server-certificate/{1}'.format(
+            account_id,
+            certificate_name)
+
+    # The listener exists
     if listener:
-        delted = __salt__['boto_elb.delete_listeners'](
-            elb,
-            [elb_port],
+        try:
+            current_cert_arn = listener[4]
+        except IndexError:
+            # Our listener exists and dosn't have an ssl to check, return here
+            rtn['comment'] = 'Listener {0} > {1} Exists'.format(elb_port, instance_port)
+            return rtn
+
+        if current_cert_arn == certificate_arn:
+            # Our listener exists and is using the correct SSL certificate, return here
+            rtn['comment'] = 'Listener {0} > {1} using SLL {2} Exists'.format(
+                elb_port,
+                instance_port,
+                certificate_arn)
+            return rtn
+
+        # Our certificates differ, so we need to change them, first check if the certificate
+        # exists
+        exists = _certificate_exists(
+            certificate_name,
+            certificate_check_limit,
+            certificate_check_interval,
             region=region,
             key=key,
             keyid=keyid,
             profile=profile)
-        if not deleted:
+        if not exists:
             rtn['result'] = False
-            rtn['comment'] = 'Failed to remove existing listener {0} > {1}'.format(elb_port, instance_port)
+            rtn['comment'] = 'Certificate {0} dpes not exist'.format(certificate_name)
             return rtn
-        rtn['changes']['removed'] = 'Removed {0} > {1}'.format(elb_port, instance_port)
+
+        # Certificate exists, update the listener certificate
+        result = __salt__['boto_elb_ssl_certificate.set'](
+            elb,
+            elb_port,
+            certificate_arn,
+            region=region,
+            key=key,
+            keyid=keyid,
+            profile=profile)
+        if not result:
+            rtn['result'] = False
+            rtn['comment'] = 'Failed to update {0} listener SSL certificate'.format(elb)
+            return rtn
+
+        rtn['comment'] = 'Updated {0} listener SSL certificate'.format(elb)
+        rtn['changes']['updated'] = {
+            'old': current_cert_arn,
+            'new': certificate_arn,
+        }
+        return rtn
 
     # Create the listener
     listener = [elb_port, instance_port, elb_proto, instance_proto]
     if certificate_arn:
+        # Ensure the certificate exists
+        exists = _certificate_exists(
+            certificate_name,
+            certificate_check_limit,
+            certificate_check_interval,
+            region=region,
+            key=key,
+            keyid=keyid,
+            profile=profile)
+        if not exists:
+            rtn['result'] = False
+            rtn['comment'] = 'Certificate {0} dpes not exist'.format(certificate_name)
+            return rtn
         listener.append(certificate_arn)
     created = __salt__['boto_elb.create_listeners'](
         elb,
