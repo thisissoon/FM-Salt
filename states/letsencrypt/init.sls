@@ -138,7 +138,7 @@ include:
       - cmd: .{{ domain }}_create_certificates
       - stateconf: python::goal
 
-# Ensure the ELB for this domain
+# Ensure a listener exists for the domain
 .{{ domain }}_elb_listener:
   boto_elb_listener.managed:
     - elb: {{ elb_name }}
