@@ -128,7 +128,7 @@ def managed(
 
         if current_cert_arn == certificate_arn:
             # Our listener exists and is using the correct SSL certificate, return here
-            rtn['comment'] = 'Listener {0} > {1} using SLL {2} Exists'.format(
+            rtn['comment'] = 'Listener {0} > {1} using SSL {2} Exists'.format(
                 elb_port,
                 instance_port,
                 certificate_arn)
