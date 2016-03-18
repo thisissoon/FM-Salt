@@ -41,13 +41,12 @@ def _certificate_exists(
 
     for i in range(0, certificate_check_interval):
         log.info('Checking Certificate Exists: {0}'.format(name))
-        try:
-            exists = __salt__['boto_iam.get_server_certificate'](name, region, key, keyid, profile)
-        except boto.exception.BotoServerError as e:
-            log.debug('Cert Not Found: Sleeping for {0} seconds...'.format(certificate_check_interval))
-            time.sleep(certificate_check_interval)
-        else:
+        exists = __salt__['boto_iam.get_server_certificate'](name, region, key, keyid, profile)
+        if exists:
             return True
+
+        log.debug('Cert Not Found: Sleeping for {0} seconds...'.format(certificate_check_interval))
+        time.sleep(certificate_check_interval)
 
     return False
 
