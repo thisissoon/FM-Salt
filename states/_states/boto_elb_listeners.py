@@ -43,7 +43,7 @@ def _certificate_exists(
         exists = __salt__['boto_iam.get_server_certificate'](name, region, key, keyid, profile)
         if exists:
             return True
-        log.debug('Sleeping for {0} seconds...'.format(certificate_check_interval)
+        log.debug('Sleeping for {0} seconds...'.format(certificate_check_interval))
         time.sleep(certificate_check_interval)
 
     return False
