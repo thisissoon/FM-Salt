@@ -146,7 +146,8 @@ include:
     - elb_proto: SSL
     - instance_port: 80
     - instance_proto: TCP
-    - certificate_arn: arn:aws:iam::{{ aws_account_id }}:server-certificate/{{ cert_name }}
+    - account_id: {{ aws_account_id }}
+    - certificate_name: {{ cert_name }}
     - region: {{ aws_region }}
     - keyid: {{ aws_keyid }}
     - key: {{ aws_key }}
