@@ -50,7 +50,7 @@ def _certificate_exists(
             key=key,
             keyid=keyid,
             profile=profile)
-        log.info('Exists: {0}'.format(exists))
+        log.debug('Exists: {0}'.format(exists))
 
         if exists:
             return True
@@ -161,6 +161,8 @@ def managed(
             rtn['comment'] = 'Certificate {0} dpes not exist'.format(certificate_name)
             return rtn
 
+        # Sleep here for a few seconds to ensure the certificate propagtes within AWS
+        time.sleep(3)
         # Certificate exists, update the listener certificate
         result = __salt__['boto_elb_ssl_certificate.set'](
             elb,
@@ -199,6 +201,9 @@ def managed(
             rtn['comment'] = 'Certificate {0} does not exist'.format(certificate_name)
             return rtn
         listener.append(certificate_arn)
+        # Sleep here for a few seconds to ensure the certificate propagtes within AWS
+        time.sleep(3)
+
     created = __salt__['boto_elb.create_listeners'](
         elb,
         [listener],
