@@ -8,3 +8,4 @@ redis_host: {{ redis }}
 clients:
   soundwave: {{ soundwave_secret }}
   shockwave: {{ shockwave_secret }}
+  deepmind: {{ deepmind_secret }}

@@ -33,6 +33,7 @@ include:
       redis: 172.17.0.1
       soundwave_secret: {{ salt['pillar.get']('secrets:soundwave', 'n/a') }}
       shockwave_secret: {{ salt['pillar.get']('secrets:shockwave', 'n/a') }}
+      deepmind_secret: {{ salt['pillar.get']('secrets:deepmind', 'n/a') }}
 
 # Run the container
 .container:
