@@ -21,8 +21,8 @@ Vagrant.configure('2') do |config|
     master.vm.network :private_network, ip: '192.168.37.10'
     master.vm.hostname = 'fm.salt.local'
     master.vm.provision :shell, path: "master_bootstrap.sh"
-    master.vm.synced_folder "./states", "/srv/salt", type: "nfs"
-    master.vm.synced_folder "./master.d", "/etc/salt/master.d", type: "nfs"
+    master.vm.synced_folder "./states", "/srv/salt"
+    master.vm.synced_folder "./master.d", "/etc/salt/master.d"
   end
 
 end
