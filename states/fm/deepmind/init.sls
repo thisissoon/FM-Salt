@@ -27,7 +27,7 @@ include:
     - environment:
       - USER_TOKEN: '{{ salt['pillar.get']('services:deepmind:user_token') }}'
       - EVENT_SERVICE: '{{ salt['pillar.get']('services:deepmind:event_service') }}'
-      - SECRET: '{{ salt['pillar.get']('secrets:soundwave', 'n/a') }}'
+      - SECRET: '{{ salt['pillar.get']('secrets:deepmind', 'n/a') }}'
       - DB: '{{ salt['pillar.get']('services:api:db', 'n/a') }}'
     - watch:
       - dockerng: .image
