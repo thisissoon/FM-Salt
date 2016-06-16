@@ -6,6 +6,8 @@
 
 # Renew certificates
 {% for domain, meta in salt['pillar.get']('letsencrypt:domains', {}).iteritems() %}
+{% set root = '/etc/letsencrypt' %}
+{% set config_dir = root + '/conf.d' %}
 {% set conf_path = config_dir + '/' + domain + '.conf' %}
 {% set cert_path = root + '/live/' + domain %}
 # Renew the certificates
