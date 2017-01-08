@@ -1,18 +1,10 @@
 # -*- coding: utf-8 -*-
 
-# Import Python Libs
 from __future__ import absolute_import
 
-# Import Salt Libs
-import hashlib
-import re
-import time
-import salt.utils.dictupdate as dictupdate
-import salt.utils.boto
-from salt.exceptions import SaltInvocationError
-import salt.ext.six as six
+# Standard Libs
 import logging
-
+import time
 
 log = logging.getLogger(__name__)
 
@@ -24,7 +16,25 @@ def __virtual__():
     '''
     Only load if boto is available.
     '''
-    return __virtualname__ if 'boto_elb.exists' in __salt__ else False
+
+    return __virtualname__ if 'boto_elb.exists' in __salt__ else False  # noqa
+
+
+def _get_listener(listeners, elb_port, instance_port):
+    for l in listeners:
+        # Unpack listener details
+        _cert_arn = None
+        if len(l) == 4:
+            _elb_port, _instance_port, _elb_proto, _instance_proto = l
+        elif len(l) == 5:
+            _elb_port, _instance_port, _elb_proto, _instance_proto, _cert_arn = l
+        else:
+            log.info('Failed to parse listener: {0}'.format(l))
+
+        if elb_port == _elb_port and instance_port == _instance_port:
+            return l
+
+    return None
 
 
 def _certificate_exists(
@@ -102,22 +112,7 @@ def managed(
         rtn['comment'] = 'Failed to get ELB config'
 
     # Listeners are a lists of (elb port, instance port, elb proto, instance proto, cert arn)
-    listener = {}
-    for l in config['listeners']:
-        # Unpack listener details
-        _cert_arn = None
-        if len(l) == 4:
-            _elb_port, _instance_port, _elb_proto, _instance_proto = l
-        elif len(l) == 5:
-            _elb_port, _instance_port, _elb_proto, _instance_proto, _cert_arn = l
-        else:
-            rtn['result'] = False
-            rtn['comment'] = 'Failed to get listener data'
-            return
-
-        if elb_port == _elb_port and instance_port == _instance_port:
-            listener = l
-            break
+    listener = _get_listener(config['listeners'], elb_port, instance_port)
 
     certificate_arn = None
     if certificate_name is not None:

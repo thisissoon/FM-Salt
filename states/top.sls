@@ -43,11 +43,6 @@ base:
     - match: grain
     - fm.websockets
 
-  # FM API
-  'roles:soon.fm.deepmind':
-    - match: grain
-    - fm.deepmind
-
   # FM Frontend
   'roles:soon.fm.frontend':
     - match: grain
