@@ -12,11 +12,11 @@ type = "scoreboard" # Override logstash type
 
 # Redis Connection Configuration
 [redis]
-address = "localhost:6379"  # Address of redis server in host:port format
+address = "172.17.0.1:6379"  # Address of redis server in host:port format
 
 # Influx DB Connection Configuration
 [influxdb]
-address = "http://localhost:8086" # Required Influx DB HTTP API address
+address = "http://172.17.0.1:8086" # Required Influx DB HTTP API address
 db = "soon_fm_scoreboard" # Required DB Name
 
 # HTTP API Configuration
