@@ -30,6 +30,11 @@ include:
     - makedirs: True
     - template: jinja
 
+# Log File
+.logfile:
+  file.present:
+    - name: /var/log/scoreboard.log
+
 # Run the container
 .container:
   dockerng.running:
@@ -41,6 +46,8 @@ include:
     - binds:
       - /etc/scoreboard:/etc/scoreboard
       - /var/log/scoreboard.log:/var/log/scoreboard.log
+    - require:
+      - file: .logfile
     - watch:
       - dockerng: .image
       - file: .config
