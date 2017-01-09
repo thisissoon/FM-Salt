@@ -14,6 +14,9 @@
       - pkg: .software-properties-common
     - require_in:
       - pkg: .influxdb
-  # Install the nginx package
   pkg.installed:
     - name: influxdb
+  service.running:
+    - name: influxdb
+    - watch:
+      - pkg: .influxdb
