@@ -40,6 +40,7 @@ include:
       - {{ port }}:5000
     - binds:
       - /etc/scoreboard:/etc/scoreboard
+      - /var/log/scoreboard.log:/var/log/scoreboard.log
     - watch:
       - dockerng: .image
       - file: .config
