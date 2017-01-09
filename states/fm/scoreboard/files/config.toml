@@ -3,7 +3,7 @@
 level = "info" # Logging verbosity (debug, info, warn, error)
 logfile = "/var/log/scoreboard.log" # Absolute path to log file
 format = "logstash" # Logging format (text, json, logstash)
-console_output = true # Enable or disable console log output
+console_output = false # Enable or disable console log output
 
 # Logstash Configuration
 # Only used if log.format is set to "logstash"
