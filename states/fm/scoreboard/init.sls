@@ -47,7 +47,7 @@ include:
 # Nginx Configuration
 .nginx:
   file.managed:
-    - name: /etc/nginx/conf.d/{{ server_name }}.conf
+    - name: /etc/nginx/conf.d/scoreboard.fm.internal.conf
     - source: salt://fm/scoreboard/files/nginx.conf
     - mode: 644
     - template: jinja
