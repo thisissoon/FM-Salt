@@ -53,6 +53,11 @@ base:
     - match: grain
     - fm.perceptor
 
+  # Scoreboard
+  'roles:soon.fm.scoreboard':
+    - match: grain
+    - fm.perceptor
+
   # Lets Encry[t
   'roles:soon.fm.letsencrypt':
     - match: grain
