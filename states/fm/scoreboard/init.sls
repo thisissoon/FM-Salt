@@ -32,7 +32,7 @@ include:
 
 # Log File
 .logfile:
-  file.exists:
+  file.managed:
     - name: /var/log/scoreboard.log
 
 # Run the container
