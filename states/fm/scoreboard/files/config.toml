@@ -22,3 +22,8 @@ db = "soon_fm_scoreboard" # Required DB Name
 # HTTP API Configuration
 [http]
 listen = "0.0.0.0:5000" # Optional listen address, defaults to :5000
+
+# SOON_ FM API Configuration
+[api]
+host = "api.thisissoon.fm" # SOON_ FM API Address
+scheme = "https" # SOON_ FM API Protocol
