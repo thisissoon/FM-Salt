@@ -21,12 +21,12 @@ base:
     - etcd.browser
 
   # FM Player
-  'roles:fm-player':
-    - match: grain
-    - python
-    - redis
-    - fm.player.soundwave
-    - fm.player.shockwave
+  # 'roles:fm-player':
+  # - match: grain
+  # - python
+  # - redis
+  # - fm.player.soundwave
+  # - fm.player.shockwave
 
   # FM API
   'roles:soon.fm.api':
@@ -49,14 +49,19 @@ base:
     - fm.frontend
 
   # Perceptor
-  'roles:soon.fm.perceptor':
-    - match: grain
-    - fm.perceptor
+  # 'roles:soon.fm.perceptor':
+  # - match: grain
+  # - fm.perceptor
 
   # Scoreboard
   'roles:soon.fm.scoreboard':
     - match: grain
     - fm.scoreboard
+
+  # Legacy Converter
+  'roles:soon.fm.legacy':
+    - match: grain
+    - fm.legacy
 
   # Lets Encry[t
   'roles:soon.fm.letsencrypt':

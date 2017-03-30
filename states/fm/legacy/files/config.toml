@@ -1,0 +1,30 @@
+#
+# SFM_ 2.0 to 1.0 Legacy Converter Configuration
+#
+
+[log]
+level = "debug"
+logfile = "/var/log/legacy.log"
+
+[redis]
+topics = [
+    # Legacy Event Channel
+    "fm:events",
+    # Player Topics
+    "player:ready",
+    "player:stop",
+    "player:stopped",
+    "player:play",
+    "player:playing",
+    "player:resume",
+    "player:resumed",
+    "player:pause",
+    "player:paused",
+    # Volume Topics
+    "volume:update",
+    "volume:updated",
+    "volume:mute",
+    "volume:muted",
+    "volume:unmute",
+    "volume:unmuted",
+]
