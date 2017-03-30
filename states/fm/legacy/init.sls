@@ -28,15 +28,11 @@ include:
 # Create Config
 .config:
   file.managed:
-    - name: /etc/crest/legacy/config.toml
-    - source: salt://crest/legacy/files/config.toml
+    - name: /etc/sfm/legacy/config.toml
+    - source: salt://sfm/legacy/files/config.toml
     - makedirs: true
     - mode: 644
-    - user: crest
-    - group: crest
     - template: jinja
-    - require:
-      - stateconf: crest.user::goal
 
 # Run the container
 .container:
