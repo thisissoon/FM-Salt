@@ -29,3 +29,7 @@ topics = [
     "volume:unmute",
     "volume:unmuted",
 ]
+
+[websocket]
+username = "E3aQFsd6jB"
+password = "..5!Y8zd_,nR?OC"
