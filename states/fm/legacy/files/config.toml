@@ -5,6 +5,7 @@
 [log]
 level = "debug"
 logfile = "/var/log/legacy.log"
+format = "logstash"
 
 [redis]
 topics = [

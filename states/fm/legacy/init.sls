@@ -40,7 +40,7 @@ include:
     - image: {{ image }}:{{ tag }}
     - restart_policy: always
     - binds:
-      - /etc/sfm/legacy:/etc/sfm/legacy
+      - /etc/sfm/legacy/config.toml:/etc/sfm/legacy/config.toml
       - /var/log/legacy.log:/var/log/legacy.log
     - require:
       - file: .logfile
