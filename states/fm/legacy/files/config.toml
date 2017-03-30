@@ -8,7 +8,7 @@ logfile = "/var/log/legacy.log"
 format = "logstash"
 
 [redis]
-host = "127.0.0.1:6379"
+host = "172.17.0.1:6379"
 topics = [
     "fm:events",
     "player:ready",
@@ -29,4 +29,4 @@ topics = [
 ]
 
 [legacy.redis]
-host = "127.0.0.1:6379"
+host = "172.17.0.1:6379"
