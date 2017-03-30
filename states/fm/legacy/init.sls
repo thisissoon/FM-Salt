@@ -1,13 +1,12 @@
 #!stateconf yaml . jinja
 
 #
-# Run the SOON_ FM 2.0 to 1.0 legacy converter container
+# Run the SOON_ FM legacy
 #
 
 {% set image = 'quay.io/thisissoon/fm-legacy' %}
 {% set tag = 'latest' %}
 
-# Dependencies
 include:
   - docker
   - nginx
@@ -20,19 +19,18 @@ include:
     - require:
       - stateconf: docker::goal
 
-# Log File
-.logfile:
-  file.managed:
-    - name: /var/log/sfm.legacy.log
-
-# Create Config
+# Configuration
 .config:
   file.managed:
     - name: /etc/sfm/legacy/config.toml
-    - source: salt://sfm/legacy/files/config.toml
-    - makedirs: true
-    - mode: 644
+    - source: salt://fm/legacy/files/config.toml
+    - makedirs: True
     - template: jinja
+
+# Log File
+.logfile:
+  file.managed:
+    - name: /var/log/legacy.log
 
 # Run the container
 .container:
@@ -48,4 +46,3 @@ include:
     - watch:
       - dockerng: .image
       - file: .config
-
