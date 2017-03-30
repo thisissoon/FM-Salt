@@ -9,9 +9,7 @@ format = "logstash"
 
 [redis]
 topics = [
-    # Legacy Event Channel
     "fm:events",
-    # Player Topics
     "player:ready",
     "player:stop",
     "player:stopped",
@@ -21,11 +19,10 @@ topics = [
     "player:resumed",
     "player:pause",
     "player:paused",
-    # Volume Topics
     "volume:update",
     "volume:updated",
     "volume:mute",
     "volume:muted",
     "volume:unmute",
-    "volume:unmuted",
+    "volume:unmuted"
 ]
