@@ -63,6 +63,11 @@ base:
     - match: grain
     - fm.legacy
 
+  # Eventrelay
+  'roles:soon.fm.eventrelay':
+    - match: grain
+    - fm.eventrelay
+
   # Lets Encry[t
   'roles:soon.fm.letsencrypt':
     - match: grain

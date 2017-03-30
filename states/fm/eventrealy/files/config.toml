@@ -1,0 +1,31 @@
+[log]
+level = "debug"
+logfile = "/var/log/eventrelay.log"
+format = "logstash"
+
+[logstash]
+type = "eventrelay"
+
+[redis]
+host = "172.17.0.1:6379"
+topics = [
+    # Player topics
+    "player:ready",
+    "player:offline",
+    "player:play",
+    "player:playing",
+    "player:stop",
+    "player:stopped",
+    "player:pause",
+    "player:paused",
+    "player:resume",
+    "player:resumed",
+    "player:error",
+    # Volume Topics
+    "volume:update",
+    "volume:updated",
+    "volume:mute",
+    "volume:muted",
+    "volume:unmute",
+    "volume:unmuted",
+]
