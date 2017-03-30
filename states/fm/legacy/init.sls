@@ -29,8 +29,9 @@ include:
 
 # Log File
 .logfile:
-  file.managed:
+  file.touch:
     - name: /var/log/legacy.log
+    - makedirs: True
 
 # Run the container
 .container:
