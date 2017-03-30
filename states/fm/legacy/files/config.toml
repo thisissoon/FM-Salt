@@ -8,6 +8,7 @@ logfile = "/var/log/legacy.log"
 format = "logstash"
 
 [redis]
+host = "127.0.0.1:6379"
 topics = [
     "fm:events",
     "player:ready",
@@ -24,5 +25,5 @@ topics = [
     "volume:mute",
     "volume:muted",
     "volume:unmute",
-    "volume:unmuted"
+    "volume:unmuted",
 ]
