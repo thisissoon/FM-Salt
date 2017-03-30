@@ -27,3 +27,6 @@ topics = [
     "volume:unmute",
     "volume:unmuted",
 ]
+
+[legacy.redis]
+host = "127.0.0.1:6379"
